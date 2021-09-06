@@ -29,7 +29,9 @@ public class Duke {
         while (true) {
             String input = scanner.nextLine();
             Command cmd = commandParser.parse(input);
-            commandHandler.handlerCommand(cmd);
+            if (cmd != null) {
+                commandHandler.handlerCommand(cmd);
+            }
         }
         // scanner.close();
 
