@@ -1,8 +1,9 @@
+/*
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import time.Time;
+import com.time.Time;
 
 class TimeTest {
     @Test
@@ -13,3 +14,5 @@ class TimeTest {
         assertTrue(true);
     }
 }
+*/
+

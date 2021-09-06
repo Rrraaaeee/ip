@@ -1,10 +1,12 @@
 package com;
 
-import com.command.CommandHandler;
+import java.util.Scanner;
+
 import com.command.Command;
+import com.command.CommandHandler;
 import com.parser.CommandParser;
 
-import java.util.Scanner;
+
 
 
 public class Duke {
@@ -23,7 +25,7 @@ public class Duke {
     /** Main */
     public static void main(String[] args) {
         System.out.println("Hello from\n" + LOGO + GREETING);
-        Scanner scanner = new Scanner(System.in);  // Create a Scanner object
+        Scanner scanner = new Scanner(System.in); // Create a Scanner object
         CommandHandler commandHandler = new CommandHandler();
         CommandParser commandParser = new CommandParser();
         while (true) {

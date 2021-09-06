@@ -44,6 +44,12 @@ checkstyle {
     // configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
 }
 
+checkstyleMain
+    .exclude('com/dopsun/chatbot/cli/*.java')
+    .exclude('com/dopsun/chatbot/cli/sml/*.java')
+    .exclude('com/dopsun/chatbot/cli/ext/*.java')
+    .exclude('com/dopsun/chatbot/cli/input/*.java')
+
 run{
     standardInput = System.in
 }
