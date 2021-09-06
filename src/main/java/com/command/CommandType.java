@@ -46,10 +46,10 @@ public enum CommandType {
     public static CommandType getCommandTypebyIndex(int i) {
         return list[i];
     }
-    public static CommandType getCommandTypebyStr(String cmdStr) {
+    public static CommandType getCommandTypeByStr(String cmdStr) {
         return CommandStr2Type.get(cmdStr);
     }
-    public static String getCommandStrbyType(CommandType cmdType) {
+    public static String getCommandStrByType(CommandType cmdType) {
         return CommandType2Str.get(cmdType);
     }
     public static boolean isValidCommandStr(String cmdStr) {

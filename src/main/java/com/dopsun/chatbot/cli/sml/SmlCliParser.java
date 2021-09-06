@@ -85,7 +85,7 @@ final class SmlCliParser implements Parser, SmlParserContext {
     public Optional<ParseResult> tryParse(String commandText) {
         Objects.requireNonNull(commandText);
 
-        tracer.enterMethod(this, "tryParse", commandText);
+        // tracer.enterMethod(this, "tryParse", commandText);
 
         ParseResultBuilder builder = ParseResultBuilder.create();
 

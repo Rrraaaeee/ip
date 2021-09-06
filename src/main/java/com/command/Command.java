@@ -6,9 +6,9 @@ import com.time.Time;
 public class Command {
 
     private CommandType cmdType;
-    private Time taskTimeInfo;
     private TaskType taskType;
     private String taskDescription;
+    private String taskTimeInfo;
 
     /**
      * Constructor
@@ -16,7 +16,7 @@ public class Command {
     public Command() {
         this.cmdType = CommandType.INVALID;
         this.taskType = TaskType.INVALID;
-        this.taskTimeInfo = new Time();
+        this.taskTimeInfo = "";
         this.taskDescription = "";
     }
 
@@ -37,7 +37,7 @@ public class Command {
     /**
      * get time info
      */
-    public Time getTimeInfo() {
+    public String getTimeInfo() {
         return taskTimeInfo;
     }
 
@@ -75,7 +75,7 @@ public class Command {
     /**
      * set time info, used by parser
      */
-    public void setTimeInfo(Time time) {
+    public void setTimeInfo(String time) {
         this.taskTimeInfo = time;
         return;
     }

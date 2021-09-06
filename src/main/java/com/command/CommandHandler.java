@@ -24,7 +24,6 @@ public class CommandHandler {
     public void handlerCommand(Command cmd) {
         CommandType cmdType = cmd.getCommandType();
         System.out.println("____________________________________________________________");
-
         if (cmdType == CommandType.LIST) {
             handleCommandList();
         } else if (cmdType == CommandType.ADD) {

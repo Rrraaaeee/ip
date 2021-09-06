@@ -1,12 +1,10 @@
-// import command.Command;
-import com.command.CommandHandler;
-import com.command.CommandType;
-import com.dopsun.chatbot.cli.*;
-import com.dopsun.chatbot.cli.input.*;
+package com;
 
-import java.nio.file.*;
-import java.net.*;
-import java.util.*;
+import com.command.CommandHandler;
+import com.command.Command;
+import com.parser.CommandParser;
+
+import java.util.Scanner;
 
 
 public class Duke {
@@ -21,70 +19,22 @@ public class Duke {
         + "Hello! I'm Duke\n"
         + "What can I do for you?\n";
 
-    public static Parser parser;
 
     /** Main */
     public static void main(String[] args) {
         System.out.println("Hello from\n" + LOGO + GREETING);
-        try{
-            prepareParser();
-        } catch (Exception e) {
-            System.out.println("Encountered error while preparing parser!");
-        }
-
-
-
-        /*
+        Scanner scanner = new Scanner(System.in);  // Create a Scanner object
         CommandHandler commandHandler = new CommandHandler();
-        CommandParser commandParser = CommandParser.getCommandParser();
-
+        CommandParser commandParser = new CommandParser();
         while (true) {
-            Command cmd = commandParser.parseNextCommand();
+            String input = scanner.nextLine();
+            Command cmd = commandParser.parse(input);
             commandHandler.handlerCommand(cmd);
-            if (cmd.isType(CommandType.BYE)) {
-                return;
-            }
         }
-        */
-
-        Optional<ParseResult> optResult = parser.tryParse("todo my deadline by Friday");
-        if (optResult.isPresent()) {
-            var res = optResult.get();
-            String name = res.allCommands().get(0).name();
-            String template = res.allCommands().get(0).template();
-            List<Argument> cmdArgs = res.allCommands().get(0).arguments();
-            for ( Argument a : cmdArgs) {
-                System.out.println(a.name());
-                System.out.println(a.value().get());
-            }
-
-            System.out.println(name);
-            System.out.println(template);
-        }
-
-
+        // scanner.close();
 
 
     }
-
-
-    public static void prepareParser() throws URISyntaxException {
-    URL csUrl = ClassLoader.getSystemResource("input/command-data.properties");
-    Path csPath = Paths.get(csUrl.toURI());
-
-    CommandSet commandSet = new FileCommandSet(csPath);
-
-    URL tsUrl = ClassLoader.getSystemResource("input/training-data.yml");
-    Path tsPath = Paths.get(tsUrl.toURI());
-    TrainingSet trainingSet = new FileTrainingSet(tsPath);
-
-    ParserBuilder parserBuilder = Parser.newBuilder();
-    parserBuilder.addCommandSet(commandSet);
-    parserBuilder.addTrainingSet(trainingSet);
-
-    parserBuilder.setTracer(System.out::println);
-    parser = parserBuilder.build();
- }
 }
 
 

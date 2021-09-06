@@ -11,7 +11,7 @@ public class TaskFactory {
      * Function to create a task of type todo, deadline, or event
      **/
     public TaskBase makeTask(Command cmd) {
-        Time timeInfo = cmd.getTimeInfo();
+        String timeInfo = cmd.getTimeInfo();
         String taskDescription = cmd.getTaskDescription();
         if (cmd.getTaskType() == TaskType.TODO) {
             return new TaskTodo(TaskType.TODO, timeInfo, taskDescription);
