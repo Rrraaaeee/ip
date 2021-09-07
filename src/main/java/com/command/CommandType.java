@@ -1,6 +1,7 @@
 package com.command;
 
 import java.util.HashMap;
+import java.util.HashSet;
 // 1. command type
 // 1.1 list
 // 1.2 add
@@ -41,18 +42,42 @@ public enum CommandType {
             put(CommandType.INVALID, "invalid");
         }};
 
+    private static final HashSet<CommandType> SimpleCommand =
+        new HashSet<CommandType>() {{
+            add(CommandType.LIST);
+            add(CommandType.BYE);
+        }};
+
     private static CommandType[] list = CommandType.values();
+
     // https://stackoverflow.com/questions/6692664/how-to-get-enum-value-from-index-in-java
     public static CommandType getCommandTypebyIndex(int i) {
         return list[i];
     }
+
     public static CommandType getCommandTypeByStr(String cmdStr) {
         return CommandStr2Type.get(cmdStr);
     }
+
     public static String getCommandStrByType(CommandType cmdType) {
         return CommandType2Str.get(cmdType);
     }
+
     public static boolean isValidCommandStr(String cmdStr) {
         return CommandStr2Type.containsKey(cmdStr);
     }
+
+    /**
+     * Check if a command shoud have trailing arguments
+     **/
+    public static boolean isSimpleCommand(CommandType cmdType) {
+        if (SimpleCommand.contains(cmdType)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
 }

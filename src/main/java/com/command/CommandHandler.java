@@ -1,5 +1,6 @@
 package com.command;
 
+import com.exceptions.FinishAppException;
 import com.task.TaskBase;
 import com.task.TaskFactory;
 import com.task.TaskManager;
@@ -21,7 +22,7 @@ public class CommandHandler {
      * Handle command
      * @param cmd
      */
-    public void handlerCommand(Command cmd) {
+    public void handlerCommand(Command cmd) throws NumberFormatException, FinishAppException {
         CommandType cmdType = cmd.getCommandType();
         System.out.println("____________________________________________________________");
         if (cmdType == CommandType.LIST) {
@@ -60,16 +61,11 @@ public class CommandHandler {
         }
     }
 
-    protected void handleCommandDone(Command cmd) {
-        // TODO: Add try catch for nullpointerexception
-        try {
-            Integer taskId = Integer.parseInt(cmd.getTaskDescription().strip());
-            System.out.println("Marking task " + taskId + " as done");
-            System.out.println("---------------");
-            taskManager.markTaskDone(taskId);
-        } catch (Exception e) {
-            System.out.println("Please specify a valid task when marking task as done");
-        }
+    protected void handleCommandDone(Command cmd) throws NumberFormatException {
+        Integer taskId = Integer.parseInt(cmd.getTaskDescription().strip());
+        System.out.println("Marking task " + taskId + " as done");
+        System.out.println("---------------");
+        taskManager.markTaskDone(taskId);
     }
 
 
@@ -83,9 +79,10 @@ public class CommandHandler {
         System.out.println("---------------");
     }
 
-    private void handleCommandBye() {
+    private void handleCommandBye() throws FinishAppException {
         System.out.println("Bye bye");
         System.out.println("---------------");
+        throw new FinishAppException();
     }
 
     private void handleCommandInvalid() {

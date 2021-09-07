@@ -5,6 +5,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import com.command.Command;
@@ -17,6 +18,8 @@ import com.dopsun.chatbot.cli.input.CommandSet;
 import com.dopsun.chatbot.cli.input.FileCommandSet;
 import com.dopsun.chatbot.cli.input.FileTrainingSet;
 import com.dopsun.chatbot.cli.input.TrainingSet;
+import com.exceptions.InvalidArgumentException;
+import com.exceptions.InvalidCommandException;
 import com.task.TaskType;
 
 
@@ -27,12 +30,8 @@ public class CommandParser {
     /**
      * Constructor. Initialise internal parser
      */
-    public CommandParser() {
-        try {
-            prepareParser();
-        } catch (Exception e) {
-            System.out.println("Encountered error while preparing parser!");
-        }
+    public CommandParser() throws URISyntaxException {
+        prepareParser();
     }
 
     /**
@@ -40,7 +39,7 @@ public class CommandParser {
      * @param input command to be parsed
      * @return a command object, to be passed into commandhandler
      */
-    public Command parse(String input) {
+    public Command parse(String input) throws InvalidCommandException, InvalidArgumentException {
         if (input.split(" ").length < 2) {
             return parseSimpleInput(input);
         } else {
@@ -48,19 +47,18 @@ public class CommandParser {
         }
     }
 
-    private Command parseSimpleInput(String input) {
+    private Command parseSimpleInput(String input) throws InvalidCommandException {
         Command cmd = new Command();
         CommandType cmdType = CommandType.getCommandTypeByStr(input);
-        if (cmdType == CommandType.INVALID) {
-            System.out.println("Invalid command!");
-            return null;
+        if (cmdType == CommandType.INVALID || !CommandType.isSimpleCommand(cmdType)) {
+            throw new InvalidCommandException();
         } else {
             cmd.setCommandType(cmdType);
             return cmd;
         }
     }
 
-    private Command parseComplexInput(String input) {
+    private Command parseComplexInput(String input) throws InvalidCommandException, InvalidArgumentException {
         Optional<ParseResult> optResult = parser.tryParse(input);
         if (optResult.isPresent()) {
             Command cmd = new Command();
@@ -86,14 +84,11 @@ public class CommandParser {
                 parseDeleteArgs(cmd, cmdArgs);
                 break;
             default:
-                System.out.println("Invalid command!");
-                cmd = null;
-                break;
+                throw new InvalidCommandException();
             }
             return cmd;
         } else {
-            System.out.println("Could not parse command!!");
-            return null;
+            throw new InvalidCommandException();
         }
     }
 
@@ -139,7 +134,7 @@ public class CommandParser {
         }
     }
 
-    private void parseDeadlineArgs(Command cmd, List<Argument> cmdArgs) {
+    private void parseDeadlineArgs(Command cmd, List<Argument> cmdArgs) throws InvalidArgumentException {
         cmd.setCommandType(CommandType.ADD);
         cmd.setTaskType(TaskType.DEADLINE);
         for (Argument a : cmdArgs) {
@@ -153,32 +148,35 @@ public class CommandParser {
                 cmd.setTimeInfo(argVal);
                 break;
             default:
-                System.out.println("Unrecognised argument: " + argName);
-                break;
+                throw new InvalidArgumentException();
             }
         }
     }
 
-    private void parseEventArgs(Command cmd, List<Argument> cmdArgs) {
+    private void parseEventArgs(Command cmd, List<Argument> cmdArgs) throws InvalidArgumentException {
         cmd.setCommandType(CommandType.ADD);
         cmd.setTaskType(TaskType.EVENT);
-        for (Argument a : cmdArgs) {
-            String argName = a.name();
-            String argVal = a.value().get();
-            switch (argName) {
-            case "task-hint":
-                cmd.setTaskDescription(argVal);
-                break;
-            case "date-hint":
-                cmd.setTimeInfo(argVal);
-                break;
-            default:
-                System.out.println("Unrecognised argument: " + argName);
-                break;
+        try {
+            for (Argument a : cmdArgs) {
+                String argName = a.name();
+                String argVal = a.value().get();
+                switch (argName) {
+                case "task-hint":
+                    cmd.setTaskDescription(argVal);
+                    break;
+                case "date-hint":
+                    cmd.setTimeInfo(argVal);
+                    break;
+                default:
+                    throw new InvalidArgumentException();
+                }
             }
+        } catch (NoSuchElementException e) {
+            throw new InvalidArgumentException();
         }
     }
-    private void parseDoneArgs(Command cmd, List<Argument> cmdArgs) {
+
+    private void parseDoneArgs(Command cmd, List<Argument> cmdArgs) throws InvalidArgumentException {
         cmd.setCommandType(CommandType.DONE);
         for (Argument a : cmdArgs) {
             String argName = a.name();
@@ -188,12 +186,11 @@ public class CommandParser {
                 cmd.setTaskDescription(argVal);
                 break;
             default:
-                System.out.println("Unrecognised argument: " + argName);
-                break;
+                throw new InvalidArgumentException();
             }
         }
     }
-    private void parseDeleteArgs(Command cmd, List<Argument> cmdArgs) {
+    private void parseDeleteArgs(Command cmd, List<Argument> cmdArgs) throws InvalidArgumentException {
         cmd.setCommandType(CommandType.DELETE);
         for (Argument a : cmdArgs) {
             String argName = a.name();
@@ -203,8 +200,7 @@ public class CommandParser {
                 cmd.setTaskDescription(argVal);
                 break;
             default:
-                System.out.println("Unrecognised argument: " + argName);
-                break;
+                throw new InvalidArgumentException();
             }
         }
     }
