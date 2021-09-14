@@ -1,7 +1,5 @@
 package com.command;
 
-import java.io.FileNotFoundException;
-
 import com.exceptions.FinishAppException;
 import com.task.TaskBase;
 import com.task.TaskFactory;

@@ -1,22 +1,27 @@
 package com.task;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.File;  
-import java.io.FileNotFoundException; 
-import java.util.Scanner; 
-import com.task.TaskFactory;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TaskManager {
 
     private ArrayList<TaskBase> taskList;
     private TaskFactory taskFactory;
 
+    /**
+     * Constructor
+     **/
     public TaskManager() {
         this.taskList = new ArrayList<TaskBase>();
         this.taskFactory = null;
     }
+
+    /**
+     * Constructor
+     **/
     public TaskManager(TaskFactory taskFactory) {
         this.taskList = new ArrayList<TaskBase>();
         this.taskFactory = taskFactory;
@@ -62,12 +67,13 @@ public class TaskManager {
     public void saveTasks() {
         try {
             PrintWriter writer = new PrintWriter("data/save.txt", "UTF-8");
-            for (TaskBase task : taskList) 
+            for (TaskBase task : taskList) {
                 writer.println(task);
+            }
             writer.close();
         } catch (Exception e) {
             System.out.println("Error encountered while saving data!");
-            return ;
+            return;
         }
     }
 
@@ -81,14 +87,14 @@ public class TaskManager {
             while (reader.hasNextLine()) {
                 // parse string
                 String [] words = reader.nextLine().split(" ");
-                TaskType taskType = TaskType.getTaskTypebySymbol(words[0].substring(1,2));
+                TaskType taskType = TaskType.getTaskTypebySymbol(words[0].substring(1, 2));
                 boolean isDone = false;
-                if (words[1].substring(1,2) == "X") {
+                if (words[1].substring(1, 2) == "X") {
                     isDone = true;
                 }
                 String taskDescription = words[2];
                 String taskTimeInfo = "";
-                for (int i = 4 ; i < words.length ; i++) {
+                for (int i = 4; i < words.length; i++) {
                     taskTimeInfo += words[i];
                     taskTimeInfo += " ";
                 }
