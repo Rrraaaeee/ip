@@ -17,6 +17,14 @@ public enum TaskType {
             put("invalid", TaskType.INVALID);
         }};
 
+    private static final HashMap<String, TaskType> TaskSymbol2Type =
+        new HashMap<String, TaskType>() {{
+            put("T", TaskType.TODO);
+            put("D", TaskType.DEADLINE);
+            put("E", TaskType.EVENT);
+            put("I", TaskType.INVALID);
+        }};
+
     private static final HashMap<TaskType, String> TaskType2Str =
         new HashMap<TaskType, String>() {{
             put(TODO, "todo");
@@ -39,6 +47,10 @@ public enum TaskType {
 
     public static TaskType getTaskTypebyStr(String cmdStr) {
         return TaskStr2Type.get(cmdStr);
+    }
+
+    public static TaskType getTaskTypebySymbol(String cmdSymbol) {
+        return TaskSymbol2Type.get(cmdSymbol);
     }
 }
 

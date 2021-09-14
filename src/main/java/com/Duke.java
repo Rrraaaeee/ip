@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.command.Command;
 import com.command.CommandHandler;
+import com.command.CommandType;
 import com.exceptions.FinishAppException;
 import com.exceptions.InvalidArgumentException;
 import com.exceptions.InvalidCommandException;
@@ -33,6 +34,8 @@ public class Duke {
         try {
             CommandHandler commandHandler = new CommandHandler();
             CommandParser commandParser = new CommandParser();
+            // start up
+            commandHandler.handlerCommand(new Command(CommandType.LOAD));
             while (true) {
                 try {
                     String input = scanner.nextLine();
@@ -52,6 +55,8 @@ public class Duke {
             }
         } catch (URISyntaxException e) {
             System.out.println("Parser received invalid input file path!");
+        } catch (FinishAppException e) {
+            System.exit(0);
         } finally {
             scanner.close();
         }

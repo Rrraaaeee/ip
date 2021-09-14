@@ -1,5 +1,7 @@
 package com.command;
 
+import java.io.FileNotFoundException;
+
 import com.exceptions.FinishAppException;
 import com.task.TaskBase;
 import com.task.TaskFactory;
@@ -14,8 +16,8 @@ public class CommandHandler {
      * Constructor to create taskManager and taskFactory
      **/
     public CommandHandler() {
-        taskManager = new TaskManager();
         taskFactory = new TaskFactory();
+        taskManager = new TaskManager(taskFactory);
     }
 
     /**
@@ -37,6 +39,10 @@ public class CommandHandler {
             handleCommandFind();
         } else if (cmdType == CommandType.BYE) {
             handleCommandBye();
+        } else if (cmdType == CommandType.SAVE) {
+            handleCommandSave();
+        } else if (cmdType == CommandType.LOAD) {
+            handleCommandLoad();
         } else if (cmdType == CommandType.INVALID) {
             handleCommandInvalid();
         } else {
@@ -79,6 +85,18 @@ public class CommandHandler {
     private void handleCommandFind() {
         System.out.println("find");
         System.out.println("---------------");
+    }
+
+    private void handleCommandSave() {
+        System.out.println("save");
+        System.out.println("---------------");
+        taskManager.saveTasks();
+    }
+
+    private void handleCommandLoad() {
+        System.out.println("load");
+        System.out.println("---------------");
+        taskManager.loadTasks();
     }
 
     private void handleCommandBye() throws FinishAppException {

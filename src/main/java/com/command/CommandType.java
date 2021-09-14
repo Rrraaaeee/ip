@@ -19,6 +19,8 @@ public enum CommandType {
     DELETE,
     FIND,
     BYE,
+    SAVE,
+    LOAD,
     INVALID;
 
     private static final HashMap<String, CommandType> CommandStr2Type =
@@ -29,6 +31,8 @@ public enum CommandType {
             put("delete", CommandType.DELETE);
             put("find", CommandType.FIND);
             put("bye", CommandType.BYE);
+            put("save", CommandType.SAVE);
+            put("load", CommandType.LOAD);
             put("invalid", CommandType.INVALID);
         }};
     private static final HashMap<CommandType, String> CommandType2Str =
@@ -39,12 +43,15 @@ public enum CommandType {
             put(CommandType.DELETE, "delete");
             put(CommandType.FIND, "find");
             put(CommandType.BYE, "bye");
+            put(CommandType.SAVE, "save");
+            put(CommandType.LOAD, "load");
             put(CommandType.INVALID, "invalid");
         }};
 
     private static final HashSet<CommandType> SimpleCommand =
         new HashSet<CommandType>() {{
             add(CommandType.LIST);
+            add(CommandType.SAVE);
             add(CommandType.BYE);
         }};
 

@@ -55,7 +55,7 @@ public abstract class TaskBase {
         String s = new String("");
         s += String.format("[%s] [%c] %s | ",
                     getTaskSymbol(),
-                    isDone ? 'X' : ' ',
+                    isDone ? 'X' : '_',
                     taskDescription);
         s += taskTime.toString();
         return s;

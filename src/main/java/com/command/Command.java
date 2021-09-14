@@ -20,6 +20,16 @@ public class Command {
     }
 
     /**
+     * Constructor
+     */
+    public Command(CommandType cmdType) {
+        this.cmdType = cmdType;
+        this.taskType = TaskType.INVALID;
+        this.taskTimeInfo = "";
+        this.taskDescription = "";
+    }
+
+    /**
      * get command type
      */
     public CommandType getCommandType() {
