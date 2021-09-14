@@ -40,6 +40,7 @@ public class TaskManager {
      **/
     public void deleteTask(int taskId) {
         // data structure is 0-indexed
+        System.out.println(taskList.get(taskId - 1));
         taskList.remove(taskId - 1);
     }
 }

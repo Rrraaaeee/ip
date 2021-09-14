@@ -32,7 +32,7 @@ public class CommandHandler {
         } else if (cmdType == CommandType.DONE) {
             handleCommandDone(cmd);
         } else if (cmdType == CommandType.DELETE) {
-            handleCommandDelete();
+            handleCommandDelete(cmd);
         } else if (cmdType == CommandType.FIND) {
             handleCommandFind();
         } else if (cmdType == CommandType.BYE) {
@@ -69,9 +69,11 @@ public class CommandHandler {
     }
 
 
-    private void handleCommandDelete() {
-        System.out.println("delete");
+    private void handleCommandDelete(Command cmd) {
+        Integer taskId = Integer.parseInt(cmd.getTaskDescription().strip());
+        System.out.println("Deleting task " + taskId);
         System.out.println("---------------");
+        taskManager.deleteTask(taskId);
     }
 
     private void handleCommandFind() {
