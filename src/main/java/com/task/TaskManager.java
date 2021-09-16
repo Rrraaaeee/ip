@@ -66,7 +66,7 @@ public class TaskManager {
      **/
     public void saveTasks() {
         try {
-            PrintWriter writer = new PrintWriter("data/save.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter("/Users/raeee/work/ip/data/save.txt", "UTF-8");
             for (TaskBase task : taskList) {
                 writer.println(task);
             }
@@ -82,7 +82,7 @@ public class TaskManager {
      **/
     public void loadTasks() {
         try {
-            File savedFile = new File("data/save.txt");
+            File savedFile = new File("/Users/raeee/work/ip/data/save.txt");
             Scanner reader = new Scanner(savedFile);
             while (reader.hasNextLine()) {
                 // parse string

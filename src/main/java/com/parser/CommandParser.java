@@ -94,13 +94,17 @@ public class CommandParser {
 
 
     private void prepareParser() throws URISyntaxException {
-        URL csUrl = ClassLoader.getSystemResource("input/command-data.properties");
-        Path csPath = Paths.get(csUrl.toURI());
+        URL csUrl = ClassLoader.getSystemResource(
+                "/users/raeee/work/ip/src/main/resources/input/command-data.properties");
+        // Path csPath = Paths.get(csUrl.toURI());
+        Path csPath = Paths.get("/users/raeee/work/ip/src/main/resources/input/command-data.properties");
 
         CommandSet commandSet = new FileCommandSet(csPath);
 
-        URL tsUrl = ClassLoader.getSystemResource("input/training-data.yml");
-        Path tsPath = Paths.get(tsUrl.toURI());
+        URL tsUrl = ClassLoader.getSystemResource(
+                "/Users/raeee/work/ip/src/main/resources/input/training-data.yml");
+        // Path tsPath = Paths.get(tsUrl.toURI());
+        Path tsPath = Paths.get("/Users/raeee/work/ip/src/main/resources/input/training-data.yml");
         TrainingSet trainingSet = new FileTrainingSet(tsPath);
 
         ParserBuilder parserBuilder = Parser.newBuilder();
