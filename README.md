@@ -22,3 +22,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
+# Acknowledgement
+
+This project reuses [chatbot-cli](https://github.com/dopsun/chatbot-cli/tree/release/0.3.0) as its frontend parser. 
