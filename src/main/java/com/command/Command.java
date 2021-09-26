@@ -4,6 +4,7 @@ import com.exceptions.FinishAppException;
 import com.storage.Storage;
 import com.task.TaskManager;
 import com.task.TaskType;
+import com.time.Time;
 import com.ui.Ui;
 
 public abstract class Command {
@@ -11,7 +12,7 @@ public abstract class Command {
     private CommandType commandType;
     private TaskType taskType;
     private String taskDescription;
-    private String taskTimeInfo;
+    private Time taskTimeInfo;
 
     /**
      * Constructor
@@ -19,7 +20,7 @@ public abstract class Command {
     public Command() {
         this.commandType = CommandType.INVALID;
         this.taskType = TaskType.INVALID;
-        this.taskTimeInfo = "";
+        this.taskTimeInfo = null;
         this.taskDescription = "";
     }
 
@@ -29,7 +30,7 @@ public abstract class Command {
     public Command(CommandType commandType) {
         this.commandType = commandType;
         this.taskType = TaskType.INVALID;
-        this.taskTimeInfo = "";
+        this.taskTimeInfo = null;
         this.taskDescription = "";
     }
 
@@ -55,7 +56,7 @@ public abstract class Command {
     /**
      * get time info
      */
-    public String getTimeInfo() {
+    public Time getTimeInfo() {
         return taskTimeInfo;
     }
 
@@ -93,7 +94,7 @@ public abstract class Command {
     /**
      * set time info, used by parser
      */
-    public void setTimeInfo(String time) {
+    public void setTimeInfo(Time time) {
         this.taskTimeInfo = time;
         return;
     }

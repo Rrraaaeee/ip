@@ -9,6 +9,7 @@ import com.task.TaskBase;
 import com.task.TaskFactory;
 import com.task.TaskManager;
 import com.task.TaskType;
+import com.time.Time;
 
 
 public class Storage {
@@ -60,8 +61,9 @@ public class Storage {
                     taskTimeInfo += words[i];
                     taskTimeInfo += " ";
                 }
+                System.out.println("TODO: Dont forget to implement time parsing in storage class!");
                 // create task
-                TaskBase task = taskManager.createTask(taskType, taskDescription, taskTimeInfo);
+                TaskBase task = taskManager.createTask(taskType, taskDescription, new Time());
                 if (isDone) {
                     task.markDone();
                 }

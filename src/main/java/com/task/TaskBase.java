@@ -1,15 +1,17 @@
 package com.task;
 
+import com.time.Time;
+
 public abstract class TaskBase {
     private TaskType taskType;
-    private String taskTime;
+    private Time taskTime;
     private String taskDescription;
     private boolean isDone;
 
     /**
      * Constructor of task that accepts tasktype, time and taskcontent
      **/
-    public TaskBase(TaskType taskType, String taskTime, String taskDescription) {
+    public TaskBase(TaskType taskType, Time taskTime, String taskDescription) {
         this.taskType = taskType;
         this.taskTime = taskTime;
         this.taskDescription = taskDescription;

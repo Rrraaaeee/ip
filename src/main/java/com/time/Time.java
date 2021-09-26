@@ -6,79 +6,21 @@ import java.time.temporal.ChronoField;
 
 public class Time {
 
-    protected TimeUnit tstart;
-    protected TimeUnit tend;
-    protected TimeUnit trepeat;
-    protected String description;
+    private LocalDateTime time_;
 
-    /**
-     * Constructor
-     */
     public Time() {
-        tstart = null;
-        tend = null;
-        trepeat = null;
-        description = "";
+        this.time_ = null;
+    }
+
+    public Time(LocalDateTime localTime) {
+        this.time_ = localTime;
     }
 
     /**
-     * Constructor
-     */
-    public Time(String description) {
-        this();
-        this.description = description;
-    }
-
-    protected void setTimeStart(String timeStr) {
-        tstart = new TimeUnit(timeStr);
-    }
-
-    protected void setTimeEnd(String timeStr) {
-        tend = new TimeUnit(timeStr);
-    }
-
-    protected void setTimeRepeat(String timeStr) {
-        trepeat = new TimeUnit(timeStr);
-    }
-
-    public TimeUnit getTimeStart(String timeStr) {
-        return tstart;
-    }
-
-    public TimeUnit getTimeEnd(String timeStr) {
-        return tend;
-    }
-
-    public TimeUnit getTimeRepeat(String timeStr) {
-        return trepeat;
-    }
-
-    /**
-     * Utility to print time info, used by list command
+     * toString method to make Time class printable
      */
     public String toString() {
-        String s = new String("");
-        s += description;
-        s += " | Time Start: ";
-        if (tstart == null) {
-            s += "-1";
-        } else {
-            s += tstart.get().toString();
-        }
-        s += " | Time End: ";
-        if (tend == null) {
-            s += "-1";
-        } else {
-            s += tend.get().toString();
-        }
-        s += " | Time Repeat: ";
-        if (trepeat == null) {
-            s += "-1";
-        } else {
-            s += trepeat.get().toString();
-        }
-        s += "\n";
-        return s;
+        return "";
     }
 }
 

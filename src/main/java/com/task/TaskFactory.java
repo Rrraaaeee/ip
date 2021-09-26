@@ -1,6 +1,7 @@
 package com.task;
 
 import com.command.Command;
+import com.time.Time;
 
 public class TaskFactory {
 
@@ -10,7 +11,7 @@ public class TaskFactory {
      * Function to create a task of type todo, deadline, or event
      **/
     public TaskBase makeTask(Command command) {
-        String timeInfo = command.getTimeInfo();
+        Time timeInfo = command.getTimeInfo();
         String taskDescription = command.getTaskDescription();
         if (command.getTaskType() == TaskType.TODO) {
             return new TaskTodo(TaskType.TODO, timeInfo, taskDescription);
@@ -27,7 +28,7 @@ public class TaskFactory {
     /**
      * Function to create a task of type todo, deadline, or event
      **/
-    public TaskBase makeTask(TaskType taskType, String taskDescription, String timeInfo) {
+    public TaskBase makeTask(TaskType taskType, String taskDescription, Time timeInfo) {
         if (taskType == TaskType.TODO) {
             return new TaskTodo(TaskType.TODO, timeInfo, taskDescription);
         } else if (taskType == TaskType.DEADLINE) {

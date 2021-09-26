@@ -1,9 +1,6 @@
 package com.parser;
 
-import java.io.File;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -19,26 +16,28 @@ import com.command.SaveCommand;
 import com.dopsun.chatbot.cli.Argument;
 import com.dopsun.chatbot.cli.ParseResult;
 import com.dopsun.chatbot.cli.Parser;
-import com.dopsun.chatbot.cli.ParserBuilder;
-import com.dopsun.chatbot.cli.input.CommandSet;
-import com.dopsun.chatbot.cli.input.FileCommandSet;
-import com.dopsun.chatbot.cli.input.FileTrainingSet;
-import com.dopsun.chatbot.cli.input.TrainingSet;
 import com.exceptions.InvalidArgumentException;
 import com.exceptions.InvalidCommandException;
 import com.task.TaskType;
+import com.time.Time;
 
 
+public class CommandParser extends ParserBase {
 
-public class CommandParser {
-
-    private static Parser parser;
+    private TimeParser timeParser;
+    private Parser parser;
 
     /**
      * Constructor. Initialise internal parser
      */
     public CommandParser() throws URISyntaxException {
-        prepareParser();
+        super();
+        // File.separator
+        String commandSetPath = System.getProperty("user.dir") + "/data/input/command-data.properties";
+        String trainingPath = System.getProperty("user.dir") + "/data/input/training-data.yml";
+        parser = prepareParser(commandSetPath, trainingPath);
+
+        timeParser = new TimeParser();
     }
 
     /**
@@ -102,24 +101,6 @@ public class CommandParser {
     }
 
 
-    private void prepareParser() throws URISyntaxException {
-        // File.separator
-        String commandSetPath = System.getProperty("user.dir") + "/data/input/command-data.properties";
-        String trainingPath = System.getProperty("user.dir") + "/data/input/training-data.yml";
-        Path csPath = Paths.get(new File(commandSetPath).toURI());
-        CommandSet commandSet = new FileCommandSet(csPath);
-        Path tsPath = Paths.get(new File(trainingPath).toURI());
-        TrainingSet trainingSet = new FileTrainingSet(tsPath);
-
-        ParserBuilder parserBuilder = Parser.newBuilder();
-        parserBuilder.addCommandSet(commandSet);
-        parserBuilder.addTrainingSet(trainingSet);
-        // parserBuilder.setTracer(System.out::println);
-        parser = parserBuilder.build();
-
-    }
-
-
     private Command parseTodoArgs(List<Argument> commandArgs) {
         Command command = new AddCommand();
         command.setTaskType(TaskType.TODO);
@@ -149,12 +130,15 @@ public class CommandParser {
         for (Argument a : commandArgs) {
             String argName = a.name();
             String argVal = a.value().get();
+            System.out.println(argName);
+            System.out.println(argVal);
             switch (argName) {
             case "task-hint":
                 command.setTaskDescription(argVal);
                 break;
             case "date-hint":
-                command.setTimeInfo(argVal);
+                Time time = timeParser.parse(argVal);
+                command.setTimeInfo(time);
                 break;
             default:
                 throw new InvalidArgumentException();
@@ -175,7 +159,8 @@ public class CommandParser {
                     command.setTaskDescription(argVal);
                     break;
                 case "date-hint":
-                    command.setTimeInfo(argVal);
+                    Time time = timeParser.parse(argVal);
+                    command.setTimeInfo(time);
                     break;
                 default:
                     throw new InvalidArgumentException();

@@ -3,6 +3,7 @@ package com.task;
 import java.util.ArrayList;
 
 import com.command.Command;
+import com.time.Time;
 
 public class TaskManager {
 
@@ -28,7 +29,7 @@ public class TaskManager {
     /**
      * Create task by specifying all required info and call taskfactory
      */
-    public TaskBase createTask(TaskType taskType, String taskDescription, String timeInfo) {
+    public TaskBase createTask(TaskType taskType, String taskDescription, Time timeInfo) {
         return taskFactory.makeTask(taskType, taskDescription, timeInfo);
     }
 
