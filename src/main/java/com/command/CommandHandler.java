@@ -25,28 +25,38 @@ public class CommandHandler {
     public void handlerCommand(Command cmd) throws NumberFormatException, FinishAppException {
         CommandType cmdType = cmd.getCommandType();
         System.out.println("____________________________________________________________");
-        if (cmdType == CommandType.LIST) {
+        switch (cmdType) {
+        case LIST:
             handleCommandList();
-        } else if (cmdType == CommandType.ADD) {
+            break;
+        case ADD:
             handleCommandAdd(cmd);
-        } else if (cmdType == CommandType.DONE) {
+            break;
+        case DONE:
             handleCommandDone(cmd);
-        } else if (cmdType == CommandType.DELETE) {
+            break;
+        case DELETE:
             handleCommandDelete(cmd);
-        } else if (cmdType == CommandType.FIND) {
+            break;
+        case FIND:
             handleCommandFind();
-        } else if (cmdType == CommandType.BYE) {
+            break;
+        case BYE:
             handleCommandBye();
-        } else if (cmdType == CommandType.SAVE) {
+            break;
+        case SAVE:
             handleCommandSave();
-        } else if (cmdType == CommandType.LOAD) {
+            break;
+        case LOAD:
             handleCommandLoad();
-        } else if (cmdType == CommandType.INVALID) {
+            break;
+        case INVALID:
             handleCommandInvalid();
-        } else {
+            break;
+        default:
             handleCommandInvalid();
+            break;
         }
-
         System.out.println("____________________________________________________________");
     }
 
