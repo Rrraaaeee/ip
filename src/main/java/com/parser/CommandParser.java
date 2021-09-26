@@ -48,45 +48,45 @@ public class CommandParser {
     }
 
     private Command parseSimpleInput(String input) throws InvalidCommandException {
-        Command cmd = new Command();
-        CommandType cmdType = CommandType.getCommandTypeByStr(input);
-        if (cmdType == CommandType.INVALID || !CommandType.isSimpleCommand(cmdType)) {
+        Command command = new Command();
+        CommandType commandType = CommandType.getCommandTypeByStr(input);
+        if (commandType == CommandType.INVALID || !CommandType.isSimpleCommand(commandType)) {
             throw new InvalidCommandException();
         } else {
-            cmd.setCommandType(cmdType);
-            return cmd;
+            command.setCommandType(commandType);
+            return command;
         }
     }
 
     private Command parseComplexInput(String input) throws InvalidCommandException, InvalidArgumentException {
         Optional<ParseResult> optResult = parser.tryParse(input);
         if (optResult.isPresent()) {
-            Command cmd = new Command();
+            Command command = new Command();
             var result = optResult.get();
             String commandType = result.allCommands().get(0).name();
             // String template = res.allCommands().get(0).template();
-            List<Argument> cmdArgs = result.allCommands().get(0).arguments();
+            List<Argument> commandArgs = result.allCommands().get(0).arguments();
 
             switch (commandType) {
             case "todo":
-                parseTodoArgs(cmd, cmdArgs);
+                parseTodoArgs(command, commandArgs);
                 break;
             case "deadline":
-                parseDeadlineArgs(cmd, cmdArgs);
+                parseDeadlineArgs(command, commandArgs);
                 break;
             case "event":
-                parseEventArgs(cmd, cmdArgs);
+                parseEventArgs(command, commandArgs);
                 break;
             case "done":
-                parseDoneArgs(cmd, cmdArgs);
+                parseDoneArgs(command, commandArgs);
                 break;
             case "delete":
-                parseDeleteArgs(cmd, cmdArgs);
+                parseDeleteArgs(command, commandArgs);
                 break;
             default:
                 throw new InvalidCommandException();
             }
-            return cmd;
+            return command;
         } else {
             throw new InvalidCommandException();
         }
@@ -116,19 +116,19 @@ public class CommandParser {
     }
 
 
-    private void parseTodoArgs(Command cmd, List<Argument> cmdArgs) {
-        cmd.setCommandType(CommandType.ADD);
-        cmd.setTaskType(TaskType.TODO);
-        for (Argument a : cmdArgs) {
+    private void parseTodoArgs(Command command, List<Argument> commandArgs) {
+        command.setCommandType(CommandType.ADD);
+        command.setTaskType(TaskType.TODO);
+        for (Argument a : commandArgs) {
             String argName = a.name();
             String argVal = a.value().get();
             switch (argName) {
             case "task-hint":
-                cmd.setTaskDescription(argVal);
+                command.setTaskDescription(argVal);
                 break;
             /*
             case "date-hint":
-                cmd.setTimeInfo(argVal);
+                command.setTimeInfo(argVal);
                 break;
             */
             default:
@@ -138,18 +138,18 @@ public class CommandParser {
         }
     }
 
-    private void parseDeadlineArgs(Command cmd, List<Argument> cmdArgs) throws InvalidArgumentException {
-        cmd.setCommandType(CommandType.ADD);
-        cmd.setTaskType(TaskType.DEADLINE);
-        for (Argument a : cmdArgs) {
+    private void parseDeadlineArgs(Command command, List<Argument> commandArgs) throws InvalidArgumentException {
+        command.setCommandType(CommandType.ADD);
+        command.setTaskType(TaskType.DEADLINE);
+        for (Argument a : commandArgs) {
             String argName = a.name();
             String argVal = a.value().get();
             switch (argName) {
             case "task-hint":
-                cmd.setTaskDescription(argVal);
+                command.setTaskDescription(argVal);
                 break;
             case "date-hint":
-                cmd.setTimeInfo(argVal);
+                command.setTimeInfo(argVal);
                 break;
             default:
                 throw new InvalidArgumentException();
@@ -157,19 +157,19 @@ public class CommandParser {
         }
     }
 
-    private void parseEventArgs(Command cmd, List<Argument> cmdArgs) throws InvalidArgumentException {
-        cmd.setCommandType(CommandType.ADD);
-        cmd.setTaskType(TaskType.EVENT);
+    private void parseEventArgs(Command command, List<Argument> commandArgs) throws InvalidArgumentException {
+        command.setCommandType(CommandType.ADD);
+        command.setTaskType(TaskType.EVENT);
         try {
-            for (Argument a : cmdArgs) {
+            for (Argument a : commandArgs) {
                 String argName = a.name();
                 String argVal = a.value().get();
                 switch (argName) {
                 case "task-hint":
-                    cmd.setTaskDescription(argVal);
+                    command.setTaskDescription(argVal);
                     break;
                 case "date-hint":
-                    cmd.setTimeInfo(argVal);
+                    command.setTimeInfo(argVal);
                     break;
                 default:
                     throw new InvalidArgumentException();
@@ -180,28 +180,28 @@ public class CommandParser {
         }
     }
 
-    private void parseDoneArgs(Command cmd, List<Argument> cmdArgs) throws InvalidArgumentException {
-        cmd.setCommandType(CommandType.DONE);
-        for (Argument a : cmdArgs) {
+    private void parseDoneArgs(Command command, List<Argument> commandArgs) throws InvalidArgumentException {
+        command.setCommandType(CommandType.DONE);
+        for (Argument a : commandArgs) {
             String argName = a.name();
             String argVal = a.value().get();
             switch (argName) {
             case "list-idx-hint":
-                cmd.setTaskDescription(argVal);
+                command.setTaskDescription(argVal);
                 break;
             default:
                 throw new InvalidArgumentException();
             }
         }
     }
-    private void parseDeleteArgs(Command cmd, List<Argument> cmdArgs) throws InvalidArgumentException {
-        cmd.setCommandType(CommandType.DELETE);
-        for (Argument a : cmdArgs) {
+    private void parseDeleteArgs(Command command, List<Argument> commandArgs) throws InvalidArgumentException {
+        command.setCommandType(CommandType.DELETE);
+        for (Argument a : commandArgs) {
             String argName = a.name();
             String argVal = a.value().get();
             switch (argName) {
             case "list-idx-hint":
-                cmd.setTaskDescription(argVal);
+                command.setTaskDescription(argVal);
                 break;
             default:
                 throw new InvalidArgumentException();

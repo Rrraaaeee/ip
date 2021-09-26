@@ -20,23 +20,23 @@ public class CommandHandler {
 
     /**
      * Handle command
-     * @param cmd
+     * @param command
      */
-    public void handlerCommand(Command cmd) throws NumberFormatException, FinishAppException {
-        CommandType cmdType = cmd.getCommandType();
+    public void handlerCommand(Command command) throws NumberFormatException, FinishAppException {
+        CommandType commandType = command.getCommandType();
         System.out.println("____________________________________________________________");
-        switch (cmdType) {
+        switch (commandType) {
         case LIST:
             handleCommandList();
             break;
         case ADD:
-            handleCommandAdd(cmd);
+            handleCommandAdd(command);
             break;
         case DONE:
-            handleCommandDone(cmd);
+            handleCommandDone(command);
             break;
         case DELETE:
-            handleCommandDelete(cmd);
+            handleCommandDelete(command);
             break;
         case FIND:
             handleCommandFind();
@@ -66,25 +66,25 @@ public class CommandHandler {
         taskManager.listAllTasks();
     }
 
-    private void handleCommandAdd(Command cmd) {
-        System.out.println("added: " + cmd.getTaskDescription());
+    private void handleCommandAdd(Command command) {
+        System.out.println("added: " + command.getTaskDescription());
         System.out.println("---------------");
-        TaskBase task = taskFactory.makeTask(cmd);
+        TaskBase task = taskFactory.makeTask(command);
         if (task != null) {
             taskManager.addTask(task);
         }
     }
 
-    protected void handleCommandDone(Command cmd) throws NumberFormatException {
-        Integer taskId = Integer.parseInt(cmd.getTaskDescription().strip());
+    protected void handleCommandDone(Command command) throws NumberFormatException {
+        Integer taskId = Integer.parseInt(command.getTaskDescription().strip());
         System.out.println("Marking task " + taskId + " as done");
         System.out.println("---------------");
         taskManager.markTaskDone(taskId);
     }
 
 
-    private void handleCommandDelete(Command cmd) {
-        Integer taskId = Integer.parseInt(cmd.getTaskDescription().strip());
+    private void handleCommandDelete(Command command) {
+        Integer taskId = Integer.parseInt(command.getTaskDescription().strip());
         System.out.println("Deleting task " + taskId);
         System.out.println("---------------");
         taskManager.deleteTask(taskId);

@@ -2,16 +2,7 @@ package com.command;
 
 import java.util.HashMap;
 import java.util.HashSet;
-// 1. command type
-// 1.1 list
-// 1.2 add
-// 1.3 delete
-// 1.3 find
-// 2. action
-// 3. time
-// 3.1 todo
-// 3.2 deadline
-// 3.3 event
+
 public enum CommandType {
     LIST,
     ADD,
@@ -23,7 +14,7 @@ public enum CommandType {
     LOAD,
     INVALID;
 
-    private static final HashMap<String, CommandType> CommandStr2Type =
+    private static final HashMap<String, CommandType> CommandStrToType =
         new HashMap<String, CommandType>() {{
             put("list", CommandType.LIST);
             put("add", CommandType.ADD);
@@ -35,7 +26,7 @@ public enum CommandType {
             put("load", CommandType.LOAD);
             put("invalid", CommandType.INVALID);
         }};
-    private static final HashMap<CommandType, String> CommandType2Str =
+    private static final HashMap<CommandType, String> CommandTypeToStr =
         new HashMap<CommandType, String>() {{
             put(CommandType.LIST, "list");
             put(CommandType.ADD, "add");
@@ -62,23 +53,23 @@ public enum CommandType {
         return list[i];
     }
 
-    public static CommandType getCommandTypeByStr(String cmdStr) {
-        return CommandStr2Type.get(cmdStr);
+    public static CommandType getCommandTypeByStr(String commandStr) {
+        return CommandStrToType.get(commandStr);
     }
 
-    public static String getCommandStrByType(CommandType cmdType) {
-        return CommandType2Str.get(cmdType);
+    public static String getCommandStrByType(CommandType commandType) {
+        return CommandTypeToStr.get(commandType);
     }
 
-    public static boolean isValidCommandStr(String cmdStr) {
-        return CommandStr2Type.containsKey(cmdStr);
+    public static boolean isValidCommandStr(String commandStr) {
+        return CommandStrToType.containsKey(commandStr);
     }
 
     /**
      * Check if a command shoud have trailing arguments
      **/
-    public static boolean isSimpleCommand(CommandType cmdType) {
-        if (SimpleCommand.contains(cmdType)) {
+    public static boolean isSimpleCommand(CommandType commandType) {
+        if (SimpleCommand.contains(commandType)) {
             return true;
         } else {
             return false;

@@ -4,7 +4,7 @@ import com.task.TaskType;
 
 public class Command {
 
-    private CommandType cmdType;
+    private CommandType commandType;
     private TaskType taskType;
     private String taskDescription;
     private String taskTimeInfo;
@@ -13,7 +13,7 @@ public class Command {
      * Constructor
      */
     public Command() {
-        this.cmdType = CommandType.INVALID;
+        this.commandType = CommandType.INVALID;
         this.taskType = TaskType.INVALID;
         this.taskTimeInfo = "";
         this.taskDescription = "";
@@ -22,8 +22,8 @@ public class Command {
     /**
      * Constructor
      */
-    public Command(CommandType cmdType) {
-        this.cmdType = cmdType;
+    public Command(CommandType commandType) {
+        this.commandType = commandType;
         this.taskType = TaskType.INVALID;
         this.taskTimeInfo = "";
         this.taskDescription = "";
@@ -33,7 +33,7 @@ public class Command {
      * get command type
      */
     public CommandType getCommandType() {
-        return cmdType;
+        return commandType;
     }
 
     /**
@@ -60,8 +60,8 @@ public class Command {
     /**
      * set command type, used by parser
      */
-    public void setCommandType(CommandType cmdType) {
-        this.cmdType = cmdType;
+    public void setCommandType(CommandType commandType) {
+        this.commandType = commandType;
         return;
     }
 
@@ -100,8 +100,8 @@ public class Command {
     /**
      * Check if command is the expected type
      */
-    public Boolean isType(CommandType cmdType) {
-        return (this.cmdType == cmdType);
+    public Boolean isType(CommandType commandType) {
+        return (this.commandType == commandType);
     }
 
 

@@ -27,7 +27,9 @@ public class Duke {
         + "What can I do for you?\n";
 
 
-    /** Main */
+    /**
+     * Main entry point
+     * */
     public static void main(String[] args) {
         System.out.println("Hello from\n" + LOGO + GREETING);
         Scanner scanner = new Scanner(System.in); // Create a Scanner object
@@ -39,9 +41,9 @@ public class Duke {
             while (true) {
                 try {
                     String input = scanner.nextLine();
-                    Command cmd = commandParser.parse(input);
-                    if (cmd != null) {
-                        commandHandler.handlerCommand(cmd);
+                    Command command = commandParser.parse(input);
+                    if (command != null) {
+                        commandHandler.handlerCommand(command);
                     }
                 } catch (InvalidCommandException e) {
                     System.out.println("Invalid command!");

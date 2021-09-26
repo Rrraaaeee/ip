@@ -45,12 +45,12 @@ public enum TaskType {
         }
     }
 
-    public static TaskType getTaskTypebyStr(String cmdStr) {
-        return TaskStr2Type.get(cmdStr);
+    public static TaskType getTaskTypebyStr(String commandStr) {
+        return TaskStr2Type.get(commandStr);
     }
 
-    public static TaskType getTaskTypebySymbol(String cmdSymbol) {
-        return TaskSymbol2Type.get(cmdSymbol);
+    public static TaskType getTaskTypebySymbol(String commandSymbol) {
+        return TaskSymbol2Type.get(commandSymbol);
     }
 }
 
