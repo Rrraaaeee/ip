@@ -20,7 +20,12 @@ public class Time {
      * toString method to make Time class printable
      */
     public String toString() {
-        return "";
+        if (time_ != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-L-dd HH:mm");
+            return time_.format(formatter);
+        } else {
+            return "INVALID TIME";
+        }
     }
 }
 

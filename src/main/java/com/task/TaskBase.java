@@ -32,6 +32,7 @@ public abstract class TaskBase {
                     isDone ? 'X' : '_',
                     taskDescription);
         s += taskTime.toString();
+
         return s;
     }
 

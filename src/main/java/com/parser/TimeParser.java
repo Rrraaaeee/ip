@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.List;
 import java.util.Optional;
+import java.time.format.DateTimeParseException;
 
 import com.dopsun.chatbot.cli.Argument;
 import com.dopsun.chatbot.cli.ParseResult;
@@ -17,6 +18,43 @@ import com.time.Time;
 public class TimeParser extends ParserBase {
 
     private Parser parser;
+    private final String[] possibleFormats = {
+        "dd/MM/yyyy HHmm",
+        "dd/M/yyyy HHmm",
+        "d/MM/yyyy HHmm",
+        "d/M/yyyy HHmm",
+        "dd/MM HHmm",
+        "dd/M HHmm",
+        "d/MM HHmm",
+        "d/M HHmm",
+
+        "HHmm dd/MM/yyyy",
+        "HHmm dd/M/yyyy",
+        "HHmm d/MM/yyyy",
+        "HHmm d/M/yyyy",
+        "HHmm dd/MM",
+        "HHmm dd/M",
+        "HHmm d/MM",
+        "HHmm d/M",
+
+        "dd/MM/yyyy Hmm",
+        "dd/M/yyyy Hmm",
+        "d/MM/yyyy Hmm",
+        "d/M/yyyy Hmm",
+        "dd/MM Hmm",
+        "dd/M Hmm",
+        "d/MM Hmm",
+        "d/M Hmm",
+
+        "Hmm dd/MM/yyyy",
+        "Hmm dd/M/yyyy",
+        "Hmm d/MM/yyyy",
+        "Hmm d/M/yyyy",
+        "Hmm dd/MM",
+        "Hmm dd/M",
+        "Hmm d/MM",
+        "Hmm d/M"
+    };
 
     /**
      * Constructor. Initialise internal parser
@@ -35,8 +73,17 @@ public class TimeParser extends ParserBase {
      * @return
      */
     public Time parse(String input) {
-        LocalDateTime localTime = LocalDateTime.parse(input, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-        return new Time(localTime);
+        for (String format : possibleFormats) {
+            try {
+                LocalDateTime localTime = LocalDateTime.parse(input, DateTimeFormatter.ofPattern(format));
+                return new Time(localTime);
+            } catch (DateTimeParseException e) {
+                continue;
+            }
+        }
+
+        System.out.println("Failed to parse time!");
+        return new Time();
     }
 
 }
