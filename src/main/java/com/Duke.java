@@ -44,7 +44,7 @@ public class Duke {
      */
     public void run() {
         startUp();
-        ui.showText("Dont forget to clean up generic exception error");
+        ui.showText("Dont forget to clean up generic exception error"); 
         // event loop
         while (true) {
             nextEvent();

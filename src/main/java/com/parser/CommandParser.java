@@ -1,7 +1,7 @@
 package com.parser;
 
+import java.io.File;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -103,25 +103,20 @@ public class CommandParser {
 
 
     private void prepareParser() throws URISyntaxException {
-        URL csUrl = ClassLoader.getSystemResource(
-                "/users/raeee/work/ip/src/main/resoucrces/input/command-data.properties");
-        // Path csPath = Paths.get(csUrl.toURI());
-        Path csPath = Paths.get("/users/raeee/work/ip/src/main/resources/input/command-data.properties");
-
+        // File.separator
+        String commandSetPath = System.getProperty("user.dir") + "/data/input/command-data.properties";
+        String trainingPath = System.getProperty("user.dir") + "/data/input/training-data.yml";
+        Path csPath = Paths.get(new File(commandSetPath).toURI());
         CommandSet commandSet = new FileCommandSet(csPath);
-
-        URL tsUrl = ClassLoader.getSystemResource(
-                "/Users/raeee/work/ip/src/main/resources/input/training-data.yml");
-        // Path tsPath = Paths.get(tsUrl.toURI());
-        Path tsPath = Paths.get("/Users/raeee/work/ip/src/main/resources/input/training-data.yml");
+        Path tsPath = Paths.get(new File(trainingPath).toURI());
         TrainingSet trainingSet = new FileTrainingSet(tsPath);
 
         ParserBuilder parserBuilder = Parser.newBuilder();
         parserBuilder.addCommandSet(commandSet);
         parserBuilder.addTrainingSet(trainingSet);
-
         // parserBuilder.setTracer(System.out::println);
         parser = parserBuilder.build();
+
     }
 
 
