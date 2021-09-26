@@ -6,23 +6,23 @@ import java.time.temporal.ChronoField;
 
 public class Time {
 
-    private LocalDateTime time_;
+    private LocalDateTime time;
 
     public Time() {
-        this.time_ = null;
+        this.time = null;
     }
 
     public Time(LocalDateTime localTime) {
-        this.time_ = localTime;
+        this.time = localTime;
     }
 
     /**
      * toString method to make Time class printable
      */
     public String toString() {
-        if (time_ != null) {
+        if (time != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-L-dd HH:mm");
-            return time_.format(formatter);
+            return time.format(formatter);
         } else {
             return "INVALID TIME";
         }

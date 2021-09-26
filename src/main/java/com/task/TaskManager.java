@@ -81,6 +81,9 @@ public class TaskManager {
     }
 
 
+    /**
+     * backend API to search all tasks by string
+     */
     public ArrayList<TaskBase> findTasks(String taskName) {
         ArrayList<TaskBase> outcome = new ArrayList<TaskBase>();
         for (TaskBase task : taskList) {
