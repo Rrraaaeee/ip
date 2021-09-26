@@ -22,6 +22,10 @@ public abstract class TaskBase {
         this.isDone = true;
     }
 
+    public boolean nameContains(String taskName) {
+        return taskDescription.contains(taskName);
+    }
+
     /**
      * Utility to print all info related to task for list command
      **/

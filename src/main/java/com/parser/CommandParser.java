@@ -10,6 +10,7 @@ import com.command.ByeCommand;
 import com.command.Command;
 import com.command.CommandType;
 import com.command.DeleteCommand;
+import com.command.FindCommand;
 import com.command.ListCommand;
 import com.command.MarkCommand;
 import com.command.SaveCommand;
@@ -18,6 +19,7 @@ import com.dopsun.chatbot.cli.ParseResult;
 import com.dopsun.chatbot.cli.Parser;
 import com.exceptions.InvalidArgumentException;
 import com.exceptions.InvalidCommandException;
+import com.task.TaskManager;
 import com.task.TaskType;
 import com.time.Time;
 
@@ -92,6 +94,8 @@ public class CommandParser extends ParserBase {
                 return parseDoneArgs(commandArgs);
             case "delete":
                 return parseDeleteArgs(commandArgs);
+            case "find":
+                return parseFindArgs(commandArgs);
             default:
                 throw new InvalidCommandException();
             }
@@ -195,6 +199,23 @@ public class CommandParser extends ParserBase {
             String argVal = a.value().get();
             switch (argName) {
             case "list-idx-hint":
+                command.setTaskDescription(argVal);
+                break;
+            default:
+                throw new InvalidArgumentException();
+            }
+        }
+        return command;
+    }
+
+    private Command parseFindArgs(List<Argument> commandArgs) throws InvalidArgumentException {
+        Command command = new FindCommand();
+        command.setCommandType(CommandType.FIND);
+        for (Argument a : commandArgs) {
+            String argName = a.name();
+            String argVal = a.value().get();
+            switch (argName) {
+            case "task-hint":
                 command.setTaskDescription(argVal);
                 break;
             default:

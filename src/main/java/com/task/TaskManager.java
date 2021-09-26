@@ -81,5 +81,14 @@ public class TaskManager {
     }
 
 
+    public ArrayList<TaskBase> findTasks(String taskName) {
+        ArrayList<TaskBase> outcome = new ArrayList<TaskBase>();
+        for (TaskBase task : taskList) {
+            if (task.nameContains(taskName)) {
+                outcome.add(task);
+            }
+        }
+        return outcome;
+    }
 }
 

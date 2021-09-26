@@ -1,6 +1,7 @@
 package com.command;
 
 import com.storage.Storage;
+import com.task.TaskBase;
 import com.task.TaskManager;
 import com.ui.Ui;
 
@@ -14,8 +15,9 @@ public class FindCommand extends Command {
      * Implementing abstract method for polymorphism
      */
     public void execute(TaskManager taskManager, Storage storage, Ui ui) {
-        ui.showText("Find is not yet implemented");
-        ui.showText("Found: " + getTaskDescription());
+        for (TaskBase task : taskManager.findTasks(getTaskDescription())) {
+            ui.showText("Found: " + task.toString());
+        }
         ui.showSeperator();
     }
 
