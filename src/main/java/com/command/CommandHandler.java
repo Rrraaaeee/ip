@@ -1,6 +1,7 @@
 package com.command;
 
 import com.exceptions.FinishAppException;
+import com.storage.Storage;
 import com.task.TaskBase;
 import com.task.TaskFactory;
 import com.task.TaskManager;
@@ -9,13 +10,18 @@ public class CommandHandler {
 
     private TaskManager taskManager;
     private TaskFactory taskFactory;
+    private Storage storage;
 
     /**
      * Constructor to create taskManager and taskFactory
+     * and fully initialise storage unit
      **/
-    public CommandHandler() {
-        taskFactory = new TaskFactory();
-        taskManager = new TaskManager(taskFactory);
+    public CommandHandler(Storage storage) {
+        this.taskFactory = new TaskFactory();
+        this.taskManager = new TaskManager();
+        this.storage = storage;
+        this.storage.assignTaskManager(taskManager);
+        this.storage.assignTaskFactory(taskFactory);
     }
 
     /**
@@ -98,13 +104,13 @@ public class CommandHandler {
     private void handleCommandSave() {
         System.out.println("save");
         System.out.println("---------------");
-        taskManager.saveTasks();
+        storage.saveTasks();
     }
 
     private void handleCommandLoad() {
         System.out.println("load");
         System.out.println("---------------");
-        taskManager.loadTasks();
+        storage.loadTasks();
     }
 
     private void handleCommandBye() throws FinishAppException {
