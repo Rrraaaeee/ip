@@ -44,7 +44,8 @@ public class Duke {
      */
     public void run() {
         startUp();
-        ui.showText("Dont forget to clean up generic exception error"); 
+        ui.showText("[TODO] Dont forget to clean up generic exception error");
+        ui.showText("[TODO] Use File.seperator so that path works on both mac and window");
         // event loop
         while (true) {
             nextEvent();
@@ -52,7 +53,9 @@ public class Duke {
     }
 
     private void startUp() {
+        ui.showLogo();
         ui.showGreetingMessage();
+        ui.showSeperator();
         storage.loadTasks();
 
     }
