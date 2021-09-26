@@ -35,8 +35,9 @@ public abstract class TaskBase {
                     getTaskSymbol(),
                     isDone ? 'X' : '_',
                     taskDescription);
-        s += taskTime.toString();
-
+        if (taskTime != null) {
+            s += taskTime.toString();
+        }
         return s;
     }
 
