@@ -1,8 +1,12 @@
 package com.command;
 
+import com.exceptions.FinishAppException;
+import com.storage.Storage;
+import com.task.TaskManager;
 import com.task.TaskType;
+import com.ui.Ui;
 
-public class Command {
+public abstract class Command {
 
     private CommandType commandType;
     private TaskType taskType;
@@ -28,6 +32,11 @@ public class Command {
         this.taskTimeInfo = "";
         this.taskDescription = "";
     }
+
+    /**
+     * Child classes are required to implement how to execute on itself
+     */
+    public abstract void execute(TaskManager taskManager, Storage storage, Ui ui) throws FinishAppException;
 
     /**
      * get command type
@@ -103,7 +112,4 @@ public class Command {
     public Boolean isType(CommandType commandType) {
         return (this.commandType == commandType);
     }
-
-
-
 }

@@ -30,7 +30,7 @@ public class Duke {
         ui = new Ui(System.out);
         scanner = new Scanner(System.in); // Create a Scanner object
         storage = new Storage(storagePath);
-        commandHandler = new CommandHandler(storage);
+        commandHandler = new CommandHandler(storage, ui);
 
         try {
             commandParser = new CommandParser();
@@ -44,6 +44,7 @@ public class Duke {
      */
     public void run() {
         startUp();
+        ui.showText("Dont forget to clean up generic exception error");
         // event loop
         while (true) {
             nextEvent();

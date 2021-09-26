@@ -2,8 +2,6 @@ package com.ui;
 
 import java.io.PrintStream;
 
-
-
 public class Ui {
 
     static final String LOGO =
@@ -17,6 +15,8 @@ public class Ui {
         "____________________________________________________________\n"
         + "Hello! I'm Duke\n"
         + "What can I do for you?\n";
+
+    static final String SEPERATOR = "---------------";
 
     private PrintStream printStream;
 
@@ -32,6 +32,13 @@ public class Ui {
         show(GREETING);
     }
 
+    public void showSeperator() {
+        show(SEPERATOR);
+    }
+
+    public void showText(String text) {
+        show(text);
+    }
 
     public void showInvalidFilePathError() {
         show("Parser received invalid input file path!");

@@ -8,8 +8,14 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import com.command.AddCommand;
+import com.command.ByeCommand;
 import com.command.Command;
 import com.command.CommandType;
+import com.command.DeleteCommand;
+import com.command.ListCommand;
+import com.command.MarkCommand;
+import com.command.SaveCommand;
 import com.dopsun.chatbot.cli.Argument;
 import com.dopsun.chatbot.cli.ParseResult;
 import com.dopsun.chatbot.cli.Parser;
@@ -21,6 +27,7 @@ import com.dopsun.chatbot.cli.input.TrainingSet;
 import com.exceptions.InvalidArgumentException;
 import com.exceptions.InvalidCommandException;
 import com.task.TaskType;
+
 
 
 public class CommandParser {
@@ -48,45 +55,47 @@ public class CommandParser {
     }
 
     private Command parseSimpleInput(String input) throws InvalidCommandException {
-        Command command = new Command();
+
         CommandType commandType = CommandType.getCommandTypeByStr(input);
         if (commandType == CommandType.INVALID || !CommandType.isSimpleCommand(commandType)) {
             throw new InvalidCommandException();
         } else {
-            command.setCommandType(commandType);
-            return command;
+            switch (commandType) {
+            case LIST:
+                return new ListCommand();
+            case SAVE:
+                return new SaveCommand();
+            case BYE:
+                return new ByeCommand();
+            default:
+                System.out.println("Unrecognised simple command!");
+                return null;
+            }
         }
+
     }
 
     private Command parseComplexInput(String input) throws InvalidCommandException, InvalidArgumentException {
         Optional<ParseResult> optResult = parser.tryParse(input);
         if (optResult.isPresent()) {
-            Command command = new Command();
             var result = optResult.get();
             String commandType = result.allCommands().get(0).name();
             // String template = res.allCommands().get(0).template();
             List<Argument> commandArgs = result.allCommands().get(0).arguments();
-
             switch (commandType) {
             case "todo":
-                parseTodoArgs(command, commandArgs);
-                break;
+                return parseTodoArgs(commandArgs);
             case "deadline":
-                parseDeadlineArgs(command, commandArgs);
-                break;
+                return parseDeadlineArgs(commandArgs);
             case "event":
-                parseEventArgs(command, commandArgs);
-                break;
+                return parseEventArgs(commandArgs);
             case "done":
-                parseDoneArgs(command, commandArgs);
-                break;
+                return parseDoneArgs(commandArgs);
             case "delete":
-                parseDeleteArgs(command, commandArgs);
-                break;
+                return parseDeleteArgs(commandArgs);
             default:
                 throw new InvalidCommandException();
             }
-            return command;
         } else {
             throw new InvalidCommandException();
         }
@@ -95,7 +104,7 @@ public class CommandParser {
 
     private void prepareParser() throws URISyntaxException {
         URL csUrl = ClassLoader.getSystemResource(
-                "/users/raeee/work/ip/src/main/resources/input/command-data.properties");
+                "/users/raeee/work/ip/src/main/resoucrces/input/command-data.properties");
         // Path csPath = Paths.get(csUrl.toURI());
         Path csPath = Paths.get("/users/raeee/work/ip/src/main/resources/input/command-data.properties");
 
@@ -111,13 +120,13 @@ public class CommandParser {
         parserBuilder.addCommandSet(commandSet);
         parserBuilder.addTrainingSet(trainingSet);
 
-        parserBuilder.setTracer(System.out::println);
+        // parserBuilder.setTracer(System.out::println);
         parser = parserBuilder.build();
     }
 
 
-    private void parseTodoArgs(Command command, List<Argument> commandArgs) {
-        command.setCommandType(CommandType.ADD);
+    private Command parseTodoArgs(List<Argument> commandArgs) {
+        Command command = new AddCommand();
         command.setTaskType(TaskType.TODO);
         for (Argument a : commandArgs) {
             String argName = a.name();
@@ -136,10 +145,11 @@ public class CommandParser {
                 break;
             }
         }
+        return command;
     }
 
-    private void parseDeadlineArgs(Command command, List<Argument> commandArgs) throws InvalidArgumentException {
-        command.setCommandType(CommandType.ADD);
+    private Command parseDeadlineArgs(List<Argument> commandArgs) throws InvalidArgumentException {
+        Command command = new AddCommand();
         command.setTaskType(TaskType.DEADLINE);
         for (Argument a : commandArgs) {
             String argName = a.name();
@@ -155,10 +165,11 @@ public class CommandParser {
                 throw new InvalidArgumentException();
             }
         }
+        return command;
     }
 
-    private void parseEventArgs(Command command, List<Argument> commandArgs) throws InvalidArgumentException {
-        command.setCommandType(CommandType.ADD);
+    private Command parseEventArgs(List<Argument> commandArgs) throws InvalidArgumentException {
+        Command command = new AddCommand();
         command.setTaskType(TaskType.EVENT);
         try {
             for (Argument a : commandArgs) {
@@ -178,10 +189,11 @@ public class CommandParser {
         } catch (NoSuchElementException e) {
             throw new InvalidArgumentException();
         }
+        return command;
     }
 
-    private void parseDoneArgs(Command command, List<Argument> commandArgs) throws InvalidArgumentException {
-        command.setCommandType(CommandType.DONE);
+    private Command parseDoneArgs(List<Argument> commandArgs) throws InvalidArgumentException {
+        Command command = new MarkCommand();
         for (Argument a : commandArgs) {
             String argName = a.name();
             String argVal = a.value().get();
@@ -193,8 +205,10 @@ public class CommandParser {
                 throw new InvalidArgumentException();
             }
         }
+        return command;
     }
-    private void parseDeleteArgs(Command command, List<Argument> commandArgs) throws InvalidArgumentException {
+    private Command parseDeleteArgs(List<Argument> commandArgs) throws InvalidArgumentException {
+        Command command = new DeleteCommand();
         command.setCommandType(CommandType.DELETE);
         for (Argument a : commandArgs) {
             String argName = a.name();
@@ -207,9 +221,6 @@ public class CommandParser {
                 throw new InvalidArgumentException();
             }
         }
+        return command;
     }
-
-
-
-
 }

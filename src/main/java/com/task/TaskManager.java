@@ -2,19 +2,43 @@ package com.task;
 
 import java.util.ArrayList;
 
+import com.command.Command;
+
 public class TaskManager {
 
     private ArrayList<TaskBase> taskList;
+    private TaskFactory taskFactory;
+
 
     /**
      * Constructor
      **/
     public TaskManager() {
         this.taskList = new ArrayList<TaskBase>();
+        this.taskFactory = new TaskFactory();
     }
 
+    /**
+     * Create task from command and call taskfactory
+     */
+    public TaskBase createTask(Command command) {
+        return taskFactory.makeTask(command);
+    }
+
+    /**
+     * Create task by specifying all required info and call taskfactory
+     */
+    public TaskBase createTask(TaskType taskType, String taskDescription, String timeInfo) {
+        return taskFactory.makeTask(taskType, taskDescription, timeInfo);
+    }
+
+    /**
+     * Add task if it is not a null ptr
+     */
     public void addTask(TaskBase task) {
-        taskList.add(task);
+        if (task != null) {
+            taskList.add(task);
+        }
     }
 
     /**
