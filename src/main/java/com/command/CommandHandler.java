@@ -29,8 +29,7 @@ public class CommandHandler {
      * @return return the response in string to be rendered on the ui
      */
     public String handlerCommand(Command command) throws NumberFormatException, FinishAppException {
-        command.execute(taskManager, storage, ui);
-        return "";
+        return command.execute(taskManager, storage, ui);
     }
 
 

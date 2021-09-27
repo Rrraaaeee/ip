@@ -14,8 +14,7 @@ public class ByeCommand extends Command {
     /**
      * Implementing abstract method for polymorphism
      */
-    public void execute(TaskManager taskManager, Storage storage, Ui ui) throws FinishAppException {
-        ui.showText("Bye bye");
+    public String execute(TaskManager taskManager, Storage storage, Ui ui) throws FinishAppException {
         throw new FinishAppException();
     }
 

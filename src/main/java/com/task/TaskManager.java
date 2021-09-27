@@ -48,14 +48,16 @@ public class TaskManager {
     /**
      * api for list command
      **/
-    public void listAllTasks() {
+    public String listAllTasks() {
+        String response = "";
         int label = 1;
         for (TaskBase task : taskList) {
-            System.out.print(label++);
-            System.out.print(".");
-            System.out.print(task);
-            System.out.println("-------");
+            response += label++;
+            response += ".";
+            response += task;
+            response += "\n";
         }
+        return response;
     }
 
     /**

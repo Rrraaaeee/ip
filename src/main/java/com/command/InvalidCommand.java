@@ -13,8 +13,8 @@ public class InvalidCommand extends Command {
     /**
      * Implementing abstract method for polymorphism
      */
-    public void execute(TaskManager taskManager, Storage storage, Ui ui) {
-        ui.showText("Invalid Command Received! Have an exception handler here later?");
+    public String execute(TaskManager taskManager, Storage storage, Ui ui) {
+        return "Invalid Command Received!";
     }
 
 }

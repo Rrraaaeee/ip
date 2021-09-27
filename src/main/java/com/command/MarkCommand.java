@@ -13,10 +13,10 @@ public class MarkCommand extends Command {
     /**
      * Implementing abstract method for polymorphism
      */
-    public void execute(TaskManager taskManager, Storage storage, Ui ui) {
+    public String execute(TaskManager taskManager, Storage storage, Ui ui) {
         Integer taskId = Integer.parseInt(this.getTaskDescription().strip());
         taskManager.markTaskDone(taskId);
-        ui.showText("Marked task: " + taskId);
+        return "Marked task: " + taskId;
     }
 
 }

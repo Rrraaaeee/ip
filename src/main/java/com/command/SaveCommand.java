@@ -13,10 +13,9 @@ public class SaveCommand extends Command {
     /**
      * Implementing abstract method for polymorphism
      */
-    public void execute(TaskManager taskManager, Storage storage, Ui ui) {
+    public String execute(TaskManager taskManager, Storage storage, Ui ui) {
         storage.saveTasks();
-
-        ui.showText("Saved tasks.");
+        return "Saved tasks!";
     }
 
 }

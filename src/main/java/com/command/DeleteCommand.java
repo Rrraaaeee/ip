@@ -12,11 +12,10 @@ public class DeleteCommand extends Command {
     /**
      * Implementing abstract method for polymorphism
      */
-    public void execute(TaskManager taskManager, Storage storage, Ui ui) {
+    public String execute(TaskManager taskManager, Storage storage, Ui ui) {
         Integer taskId = Integer.parseInt(getTaskDescription().strip());
         taskManager.deleteTask(taskId);
-
-        ui.showText("Deleted task" + taskId);
+        return "Deleted task" + taskId;
     }
 
 }

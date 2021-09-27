@@ -13,11 +13,8 @@ public class ListCommand extends Command {
     /**
      * Implementing abstract method for polymorphism
      */
-    public void execute(TaskManager taskManager, Storage storage, Ui ui) {
-        taskManager.listAllTasks();
-
-        ui.showText("Listed all tasks.");
-
+    public String execute(TaskManager taskManager, Storage storage, Ui ui) {
+        return taskManager.listAllTasks();
     }
 
 }

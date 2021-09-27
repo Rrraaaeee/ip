@@ -14,11 +14,10 @@ public class AddCommand extends Command {
     /**
      * Implementing abstract method for polymorphism
      */
-    public void execute(TaskManager taskManager, Storage storage, Ui ui) {
+    public String execute(TaskManager taskManager, Storage storage, Ui ui) {
         TaskBase task = taskManager.createTask(this);
         taskManager.addTask(task);
-
-        ui.showText("Added: " + getTaskDescription());
+        return  "Added: " + getTaskDescription();
     }
 
 }

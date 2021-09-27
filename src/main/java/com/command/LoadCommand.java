@@ -13,11 +13,12 @@ public class LoadCommand extends Command {
     /**
      * Implementing abstract method for polymorphism
      */
-    public void execute(TaskManager taskManager, Storage storage, Ui ui) {
+    public String execute(TaskManager taskManager, Storage storage, Ui ui) {
         if (storage.loadTasks()) {
-            ui.showText("Loaded tasks: " + getTaskDescription());
+            return "Loaded tasks: " + getTaskDescription();
         }
+        return "Failed to load tasks!";
     }
-
+        
 }
 

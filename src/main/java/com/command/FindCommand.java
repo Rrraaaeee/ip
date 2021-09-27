@@ -14,10 +14,12 @@ public class FindCommand extends Command {
     /**
      * Implementing abstract method for polymorphism
      */
-    public void execute(TaskManager taskManager, Storage storage, Ui ui) {
+    public String execute(TaskManager taskManager, Storage storage, Ui ui) {
+        String response = "";
         for (TaskBase task : taskManager.findTasks(getTaskDescription())) {
-            ui.showText("Found: " + task.toString());
+            response += "Found: " + task.toString() + "\n";
         }
+        return response;
     }
 
 }

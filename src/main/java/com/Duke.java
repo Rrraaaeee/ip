@@ -79,18 +79,20 @@ public class Duke extends Application {
                 response = commandHandler.handlerCommand(command);
             }
         } catch (InvalidCommandException e) {
+            response =  "This is an invalid command!";
             ui.showInvalidCommandError();
         } catch (InvalidArgumentException e) {
+            response =  "You have keyed in invalid command argument!";
             ui.showInvalidCommandArgumentError();
         } catch (NumberFormatException e) {
+            response =  "Unrecognised number!";
             ui.showInvalidNumberError();
         } catch (FinishAppException e) {
+            response =  "Bye bye!";
             scanner.close();
             System.exit(0);
         }
-
         return response;
-        // return "Duke heard: " + input;
     }
 
 

@@ -37,7 +37,7 @@ public abstract class Command {
     /**
      * Child classes are required to implement how to execute on itself
      */
-    public abstract void execute(TaskManager taskManager, Storage storage, Ui ui) throws FinishAppException;
+    public abstract String execute(TaskManager taskManager, Storage storage, Ui ui) throws FinishAppException;
 
     /**
      * get command type
