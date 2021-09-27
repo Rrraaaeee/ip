@@ -143,20 +143,24 @@ public class CommandParser extends ParserBase {
     private Command parseDeadlineArgs(List<Argument> commandArgs) throws InvalidArgumentException {
         Command command = new AddCommand();
         command.setTaskType(TaskType.DEADLINE);
-        for (Argument a : commandArgs) {
-            String argName = a.name();
-            String argVal = a.value().get();
-            switch (argName) {
-            case "task-hint":
-                command.setTaskDescription(argVal);
-                break;
-            case "date-hint":
-                Time time = timeParser.parse(argVal);
-                command.setTimeInfo(time);
-                break;
-            default:
-                throw new InvalidArgumentException();
+        try {
+            for (Argument a : commandArgs) {
+                String argName = a.name();
+                String argVal = a.value().get();
+                switch (argName) {
+                case "task-hint":
+                    command.setTaskDescription(argVal);
+                    break;
+                case "date-hint":
+                    Time time = timeParser.parse(argVal);
+                    command.setTimeInfo(time);
+                    break;
+                default:
+                    throw new InvalidArgumentException();
+                }
             }
+        } catch (NoSuchElementException e) {
+            throw new InvalidArgumentException();
         }
         return command;
     }

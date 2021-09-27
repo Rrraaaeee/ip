@@ -1,5 +1,0 @@
-[T] [_] hello | 
-[T] [_] hey | 
-[T] [X] hey2 | 
-[D] [_] a | tuesday 
-[E] [_] hel | wednesday 

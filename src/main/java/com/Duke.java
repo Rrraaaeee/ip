@@ -83,7 +83,7 @@ public class Duke {
      * Main entry point
      * */
     public static void main(String[] args) {
-        String storagePath = System.getProperty("user.dir") + "/data/storage.txt";
+        String storagePath = System.getProperty("user.dir") + "/tmp/storage.txt";
         new Duke(storagePath).run();
     }
 

@@ -24,7 +24,7 @@ public class Time {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-L-dd HH:mm");
             return time.format(formatter);
         } else {
-            return "INVALID TIME";
+            return "INVALID TIME\n";
         }
     }
 }
