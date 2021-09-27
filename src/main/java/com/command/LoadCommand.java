@@ -16,7 +16,6 @@ public class LoadCommand extends Command {
     public void execute(TaskManager taskManager, Storage storage, Ui ui) {
         if (storage.loadTasks()) {
             ui.showText("Loaded tasks: " + getTaskDescription());
-            ui.showSeperator();
         }
     }
 

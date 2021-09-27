@@ -16,7 +16,6 @@ public class ByeCommand extends Command {
      */
     public void execute(TaskManager taskManager, Storage storage, Ui ui) throws FinishAppException {
         ui.showText("Bye bye");
-        ui.showSeperator();
         throw new FinishAppException();
     }
 

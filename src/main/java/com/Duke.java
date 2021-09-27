@@ -45,7 +45,7 @@ public class Duke extends Application {
         storage = new Storage(storagePath);
         commandHandler = new CommandHandler(storage, ui);
         try {
-            commandParser = new CommandParser();
+            commandParser = new CommandParser(ui);
         } catch (URISyntaxException e) {
             ui.showInvalidFilePathError();
         }
@@ -72,10 +72,11 @@ public class Duke extends Application {
      * Return: Response string to be rendered in the app
      */
     public String getResponse(String input) {
+        String response = "";
         try {
             Command command = commandParser.parse(input);
             if (command != null) {
-                commandHandler.handlerCommand(command);
+                response = commandHandler.handlerCommand(command);
             }
         } catch (InvalidCommandException e) {
             ui.showInvalidCommandError();
@@ -88,9 +89,8 @@ public class Duke extends Application {
             System.exit(0);
         }
 
-
-
-        return "Duke heard: " + input;
+        return response;
+        // return "Duke heard: " + input;
     }
 
 

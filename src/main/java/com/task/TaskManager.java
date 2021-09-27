@@ -4,19 +4,22 @@ import java.util.ArrayList;
 
 import com.command.Command;
 import com.time.Time;
+import com.ui.Ui;
 
 public class TaskManager {
 
     private ArrayList<TaskBase> taskList;
     private TaskFactory taskFactory;
+    private Ui ui;
 
 
     /**
      * Constructor
      **/
-    public TaskManager() {
+    public TaskManager(Ui ui) {
         this.taskList = new ArrayList<TaskBase>();
         this.taskFactory = new TaskFactory();
+        this.ui = ui;
     }
 
     /**

@@ -17,18 +17,20 @@ public class CommandHandler {
      * and fully initialise storage unit
      **/
     public CommandHandler(Storage storage, Ui ui) {
-        this.taskManager = new TaskManager();
+        this.taskManager = new TaskManager(ui);
         this.ui = ui;
         this.storage = storage;
         this.storage.assignTaskManager(taskManager);
     }
 
     /**
-     * Handle command
+     * Main entry for handling command
      * @param command
+     * @return return the response in string to be rendered on the ui
      */
-    public void handlerCommand(Command command) throws NumberFormatException, FinishAppException {
+    public String handlerCommand(Command command) throws NumberFormatException, FinishAppException {
         command.execute(taskManager, storage, ui);
+        return "";
     }
 
 

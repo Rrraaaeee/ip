@@ -18,7 +18,6 @@ public class FindCommand extends Command {
         for (TaskBase task : taskManager.findTasks(getTaskDescription())) {
             ui.showText("Found: " + task.toString());
         }
-        ui.showSeperator();
     }
 
 }

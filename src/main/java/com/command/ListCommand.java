@@ -17,7 +17,6 @@ public class ListCommand extends Command {
         taskManager.listAllTasks();
 
         ui.showText("Listed all tasks.");
-        ui.showSeperator();
 
     }
 

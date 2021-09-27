@@ -17,8 +17,6 @@ public class MarkCommand extends Command {
         Integer taskId = Integer.parseInt(this.getTaskDescription().strip());
         taskManager.markTaskDone(taskId);
         ui.showText("Marked task: " + taskId);
-        ui.showSeperator();
-
     }
 
 }

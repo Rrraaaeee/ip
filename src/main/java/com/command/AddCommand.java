@@ -19,7 +19,6 @@ public class AddCommand extends Command {
         taskManager.addTask(task);
 
         ui.showText("Added: " + getTaskDescription());
-        ui.showSeperator();
     }
 
 }

@@ -15,7 +15,6 @@ public class InvalidCommand extends Command {
      */
     public void execute(TaskManager taskManager, Storage storage, Ui ui) {
         ui.showText("Invalid Command Received! Have an exception handler here later?");
-        ui.showSeperator();
     }
 
 }

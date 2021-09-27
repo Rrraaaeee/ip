@@ -17,8 +17,6 @@ public class DeleteCommand extends Command {
         taskManager.deleteTask(taskId);
 
         ui.showText("Deleted task" + taskId);
-        ui.showSeperator();
-
     }
 
 }

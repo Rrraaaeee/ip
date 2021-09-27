@@ -17,8 +17,6 @@ public class SaveCommand extends Command {
         storage.saveTasks();
 
         ui.showText("Saved tasks.");
-        ui.showSeperator();
-
     }
 
 }
