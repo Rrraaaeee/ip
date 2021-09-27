@@ -246,11 +246,6 @@ public class Duke extends Application {
         return "Duke heard: " + input;
     }
 
-    
-
-
-
-
 
 
 }
