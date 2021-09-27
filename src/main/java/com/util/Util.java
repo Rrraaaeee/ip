@@ -18,7 +18,8 @@ public class Util {
     /**
      * Convert input stream (resources) to file during deployment
      */
-    public static File inputStreamtoTmpFile (InputStream inputStream, String baseDir, String fileName) throws IOException {
+    public static File inputStreamtoTmpFile (InputStream inputStream, String baseDir, String fileName)
+            throws IOException {
         File tmpFile = null;
         Path folderDir = Paths.get(baseDir);
         Path fileDir = Paths.get(baseDir + fileName);

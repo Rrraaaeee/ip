@@ -2,8 +2,6 @@ package com;
 
 import java.net.URISyntaxException;
 import java.util.Scanner;
-import javafx.stage.Stage;
-import javafx.application.Application;
 
 import com.command.Command;
 import com.command.CommandHandler;
@@ -14,8 +12,13 @@ import com.parser.CommandParser;
 import com.storage.Storage;
 import com.ui.Ui;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-// https://sticker.weixin.qq.com/cgi-bin/mmemoticon-bin/emoticonview?oper=single&t=shop/detail&productid=aL2PCfwK/89qO7sF6/+I+UDhfwEjhec2ZNvdnLLJRd/MwZDDtg4gTJsw5pktwTOzVdBiBxVa/GhcN8gdDisVW0ACS6fFvJnD++CRbZt0uERg=
+// https://sticker.weixin.qq.com/cgi-bin/mmemoticon-bin/
+// emoticonview?oper=single&t=shop/detail&productid=aL2PCfwK/
+// 89qO7sF6/+I+UDhfwEjhec2ZNvdnLLJRd/MwZDDtg4gTJsw5pktwTOzVdBiBxVa/
+// GhcN8gdDisVW0ACS6fFvJnD++CRbZt0uERg=
 public class Duke extends Application {
 
     private static final String storagePath = System.getProperty("user.dir") + "/tmp/storage.txt";
@@ -79,16 +82,16 @@ public class Duke extends Application {
                 response = commandHandler.handlerCommand(command);
             }
         } catch (InvalidCommandException e) {
-            response =  "This is an invalid command!";
+            response = "This is an invalid command!";
             ui.showInvalidCommandError();
         } catch (InvalidArgumentException e) {
-            response =  "You have keyed in invalid command argument!";
+            response = "You have keyed in invalid command argument!";
             ui.showInvalidCommandArgumentError();
         } catch (NumberFormatException e) {
-            response =  "Unrecognised number!";
+            response = "Unrecognised number!";
             ui.showInvalidNumberError();
         } catch (FinishAppException e) {
-            response =  "Bye bye!";
+            response = "Bye bye!";
             scanner.close();
             System.exit(0);
         }

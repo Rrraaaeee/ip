@@ -1,10 +1,9 @@
 package com.ui;
 
-import com.Duke;
-
 import java.io.PrintStream;
 
-import javafx.application.Application;
+import com.Duke;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,7 +22,7 @@ public class Ui {
     private final Integer FONT_SIZE = 13;
 
     private PrintStream printStream;
-    private Duke duke; 
+    private Duke duke;
 
     // javafx
     private Stage stage;
@@ -40,10 +39,13 @@ public class Ui {
     }
 
     // https://se-education.org/guides/tutorials/javaFx.html
+    /**
+     * Create stage, scene, nodes, etc
+     **/
     public void create(Stage stage, Duke duke) {
 
         this.stage = stage;
-        this.duke = duke; 
+        this.duke = duke;
 
         // Step 1. Setting up required components
         // The container for the content of the chat to scroll.
@@ -108,18 +110,20 @@ public class Ui {
         userInput.setOnAction((event) -> {
             handleUserInput();
         });
-        
     }
 
     public void showUi() {
         stage.show();
     }
 
+    /**
+     * Prints greet message
+     **/
     public void greet() {
-        Label l = new Label("Hello!!!");
-        l.setFont(new Font(FONT,FONT_SIZE));
+        Label greet = new Label("Hello!!!");
+        greet.setFont(new Font(FONT, FONT_SIZE));
         dialogContainer.getChildren().addAll(
-            DialogBox.getDukeDialog(l, new ImageView(dukeImg))
+            DialogBox.getDukeDialog(greet, new ImageView(dukeImg))
         );
     }
 

@@ -19,6 +19,5 @@ public class LoadCommand extends Command {
         }
         return "Failed to load tasks!";
     }
-        
 }
 

@@ -2,21 +2,21 @@ package com.ui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.shape.Circle;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.geometry.Insets;
-import javafx.scene.effect.BlurType;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
-import javafx.scene.effect.DropShadow;
 
 
 public class DialogBox extends HBox {
@@ -32,9 +32,9 @@ public class DialogBox extends HBox {
         text = l;
         text.setWrapText(true);
         text.setBackground(new Background(new BackgroundFill(Color.YELLOWGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-        text.setPadding(new Insets(5,5,5,5));
+        text.setPadding(new Insets(5, 5, 5, 5));
         text.setFont(new Font("Arial", 13));
-        text.setEffect(new DropShadow(BlurType.GAUSSIAN, Color.GREY,2, 10, 3, 3));
+        text.setEffect(new DropShadow(BlurType.GAUSSIAN, Color.GREY, 2, 10, 3, 3));
 
         displayPicture = new Circle(30.0, new ImagePattern(iv.getImage()));
         displayPicture.relocate(10, 10);

@@ -1,12 +1,12 @@
 package com.parser;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.io.IOException;
 
 import com.command.AddCommand;
 import com.command.ByeCommand;
@@ -24,8 +24,8 @@ import com.exceptions.InvalidArgumentException;
 import com.exceptions.InvalidCommandException;
 import com.task.TaskType;
 import com.time.Time;
-import com.util.Util;
 import com.ui.Ui;
+import com.util.Util;
 
 
 public class CommandParser extends ParserBase {
@@ -57,10 +57,10 @@ public class CommandParser extends ParserBase {
             parser = prepareParser(commandSetTmpFile.getPath(), trainingTmpFile.getPath());
 
             timeParser = new TimeParser();
-        } catch (IOException e) { 
-            ui.showText("Error encountered when creating temp file: " + 
-                    System.getProperty("user.dir") + "/tmp" +"/tmp_file_command.txt" + " or " +
-                    System.getProperty("user.dir") + "/tmp" + "/tmp_file_training.txt");
+        } catch (IOException e) {
+            ui.showText("Error encountered when creating temp file: "
+                    + System.getProperty("user.dir") + "/tmp" + "/tmp_file_command.txt" + " or "
+                    + System.getProperty("user.dir") + "/tmp" + "/tmp_file_training.txt");
         }
     }
 
