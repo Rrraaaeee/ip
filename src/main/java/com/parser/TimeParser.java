@@ -55,9 +55,9 @@ public class TimeParser extends ParserBase {
     public TimeParser() throws URISyntaxException {
         super();
         // File.separator
-        String commandSetPath = System.getProperty("user.dir") + "/data/input/time-data.properties";
-        String trainingPath = System.getProperty("user.dir") + "/data/input/training-data.yml";
-        parser = prepareParser(commandSetPath, trainingPath);
+        // String commandSetPath = System.getProperty("user.dir") + "/data/input/time-data.properties";
+        // String trainingPath = System.getProperty("user.dir") + "/data/input/training-data.yml";
+        // parser = prepareParser(commandSetPath, trainingPath);
     }
 
     /**
