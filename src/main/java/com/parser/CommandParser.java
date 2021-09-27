@@ -1,5 +1,7 @@
 package com.parser;
 
+import java.io.File;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -21,6 +23,7 @@ import com.exceptions.InvalidArgumentException;
 import com.exceptions.InvalidCommandException;
 import com.task.TaskType;
 import com.time.Time;
+import com.util.Util;
 
 
 public class CommandParser extends ParserBase {
@@ -34,9 +37,19 @@ public class CommandParser extends ParserBase {
     public CommandParser() throws URISyntaxException {
         super();
         // File.separator
-        String commandSetPath = System.getProperty("user.dir") + "/data/input/command-data.properties";
-        String trainingPath = System.getProperty("user.dir") + "/data/input/training-data.yml";
-        parser = prepareParser(commandSetPath, trainingPath);
+        // String commandSetPath = System.getProperty("user.dir") + "/data/input/command-data.properties";
+        // String trainingPath = System.getProperty("user.dir") + "/data/input/training-data.yml";
+
+        InputStream commandSetInputStream = this.getClass().getResourceAsStream("/input/command-data.properties");
+
+        File commandSetTmpFile = Util.inputStreamtoTmpFile(commandSetInputStream,
+                System.getProperty("user.dir") + "/tmp", "/tmp_file_command.txt");
+
+        InputStream trainingPathInputStream = this.getClass().getResourceAsStream("/input/training-data.yml");
+        File trainingTmpFile = Util.inputStreamtoTmpFile(trainingPathInputStream,
+                System.getProperty("user.dir") + "/tmp", "/tmp_file_training.txt");
+
+        parser = prepareParser(commandSetTmpFile.getPath(), trainingTmpFile.getPath());
 
         timeParser = new TimeParser();
     }
