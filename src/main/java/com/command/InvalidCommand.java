@@ -14,7 +14,7 @@ public class InvalidCommand extends Command {
      * Implementing abstract method for polymorphism
      */
     public void execute(TaskManager taskManager, Storage storage, Ui ui) {
-        ui.showText("Invalid Command Received! Have an exception handler here later?");
+        ui.showText("This is an invalid command!");
         ui.showSeperator();
     }
 

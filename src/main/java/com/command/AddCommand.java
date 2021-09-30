@@ -18,7 +18,8 @@ public class AddCommand extends Command {
         TaskBase task = taskManager.createTask(this);
         taskManager.addTask(task);
 
-        ui.showText("Added: " + getTaskDescription());
+        //ui.showText("I have added Todo: " + getTaskDescription());
+        ui.showText("I have added task: " + task);
         ui.showSeperator();
     }
 

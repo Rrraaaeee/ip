@@ -1,6 +1,7 @@
 package com.parser;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -13,6 +14,7 @@ import com.command.Command;
 import com.command.CommandType;
 import com.command.DeleteCommand;
 import com.command.FindCommand;
+import com.command.HelpCommand;
 import com.command.ListCommand;
 import com.command.MarkCommand;
 import com.command.SaveCommand;
@@ -23,6 +25,7 @@ import com.exceptions.InvalidArgumentException;
 import com.exceptions.InvalidCommandException;
 import com.task.TaskType;
 import com.time.Time;
+import com.ui.Ui;
 import com.util.Util;
 
 
@@ -30,28 +33,36 @@ public class CommandParser extends ParserBase {
 
     private TimeParser timeParser;
     private Parser parser;
+    private Ui ui;
 
     /**
      * Constructor. Initialise internal parser
      */
-    public CommandParser() throws URISyntaxException {
+    public CommandParser(Ui ui) throws URISyntaxException {
         super();
+
         // File.separator
         // String commandSetPath = System.getProperty("user.dir") + "/data/input/command-data.properties";
         // String trainingPath = System.getProperty("user.dir") + "/data/input/training-data.yml";
+        this.ui = ui;
+        try {
+            InputStream commandSetInputStream = this.getClass().getResourceAsStream("/input/command-data.properties");
 
-        InputStream commandSetInputStream = this.getClass().getResourceAsStream("/input/command-data.properties");
+            File commandSetTmpFile = Util.inputStreamtoTmpFile(commandSetInputStream,
+                    System.getProperty("user.dir") + "/tmp", "/tmp_file_command.txt");
 
-        File commandSetTmpFile = Util.inputStreamtoTmpFile(commandSetInputStream,
-                System.getProperty("user.dir") + "/tmp", "/tmp_file_command.txt");
+            InputStream trainingPathInputStream = this.getClass().getResourceAsStream("/input/training-data.yml");
+            File trainingTmpFile = Util.inputStreamtoTmpFile(trainingPathInputStream,
+                    System.getProperty("user.dir") + "/tmp", "/tmp_file_training.txt");
 
-        InputStream trainingPathInputStream = this.getClass().getResourceAsStream("/input/training-data.yml");
-        File trainingTmpFile = Util.inputStreamtoTmpFile(trainingPathInputStream,
-                System.getProperty("user.dir") + "/tmp", "/tmp_file_training.txt");
+            parser = prepareParser(commandSetTmpFile.getPath(), trainingTmpFile.getPath());
 
-        parser = prepareParser(commandSetTmpFile.getPath(), trainingTmpFile.getPath());
-
-        timeParser = new TimeParser();
+            timeParser = new TimeParser(ui);
+        } catch (IOException e) {
+            ui.showText("Error encountered when creating temp file: "
+                    + System.getProperty("user.dir") + "/tmp" + "/tmp_file_command.txt" + " or "
+                    + System.getProperty("user.dir") + "/tmp" + "/tmp_file_training.txt");
+        }
     }
 
     /**
@@ -80,8 +91,10 @@ public class CommandParser extends ParserBase {
                 return new SaveCommand();
             case BYE:
                 return new ByeCommand();
+            case HELP:
+                return new HelpCommand();
             default:
-                System.out.println("Unrecognised simple command!");
+                ui.showText("Unrecognised simple command: " + CommandType.getCommandStrByType(commandType));
                 return null;
             }
         }
@@ -117,7 +130,7 @@ public class CommandParser extends ParserBase {
     }
 
 
-    private Command parseTodoArgs(List<Argument> commandArgs) {
+    private Command parseTodoArgs(List<Argument> commandArgs) throws InvalidArgumentException {
         Command command = new AddCommand();
         command.setTaskType(TaskType.TODO);
         for (Argument a : commandArgs) {
@@ -133,8 +146,8 @@ public class CommandParser extends ParserBase {
                 break;
             */
             default:
-                System.out.println("Unrecognised argument: " + argName);
-                break;
+                ui.showText("Unrecognised argument for todo: " + argName);
+                throw new InvalidArgumentException();
             }
         }
         return command;
@@ -156,6 +169,7 @@ public class CommandParser extends ParserBase {
                     command.setTimeInfo(time);
                     break;
                 default:
+                    ui.showText("Unrecognised argument for deadline: " + argName);
                     throw new InvalidArgumentException();
                 }
             }
@@ -181,6 +195,7 @@ public class CommandParser extends ParserBase {
                     command.setTimeInfo(time);
                     break;
                 default:
+                    ui.showText("Unrecognised argument for event: " + argName);
                     throw new InvalidArgumentException();
                 }
             }
@@ -200,6 +215,7 @@ public class CommandParser extends ParserBase {
                 command.setTaskDescription(argVal);
                 break;
             default:
+                ui.showText("Unrecognised argument for mark: " + argName);
                 throw new InvalidArgumentException();
             }
         }
@@ -216,6 +232,7 @@ public class CommandParser extends ParserBase {
                 command.setTaskDescription(argVal);
                 break;
             default:
+                ui.showText("Unrecognised argument for delete: " + argName);
                 throw new InvalidArgumentException();
             }
         }
@@ -233,6 +250,7 @@ public class CommandParser extends ParserBase {
                 command.setTaskDescription(argVal);
                 break;
             default:
+                ui.showText("Unrecognised argument for find: " + argName);
                 throw new InvalidArgumentException();
             }
         }

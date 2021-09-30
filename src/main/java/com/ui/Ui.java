@@ -45,15 +45,19 @@ public class Ui {
     }
 
     public void showInvalidCommandError() {
-        show("Invalid Command!");
+        show("I don't quite understand what do you mean, try type in [help] to see available commands.");
     }
 
     public void showInvalidCommandArgumentError() {
-        show("Invalid Command Argument!");
+        show("You have keyed in invalid command argument.");
     }
 
     public void showInvalidNumberError() {
-        show("Invalid integer value!");
+        show("Unrecognised number.");
+    }
+
+    public void showBye() {
+        show("Bye bye :))");
     }
 
     private void show(String printMessage) {

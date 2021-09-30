@@ -4,60 +4,48 @@ import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.Year;
 
 import com.dopsun.chatbot.cli.Parser;
 import com.time.Time;
+import com.ui.Ui;
 
 public class TimeParser extends ParserBase {
 
-    private Parser parser;
+    // private Parser parser;
+    private Ui ui;
     private final String[] possibleFormats = {
-        "dd/MM/yyyy HHmm",
-        "dd/M/yyyy HHmm",
-        "d/MM/yyyy HHmm",
-        "d/M/yyyy HHmm",
-        "dd/MM HHmm",
-        "dd/M HHmm",
-        "d/MM HHmm",
-        "d/M HHmm",
+        "dd/MM/yyyy/HHmm",
+        "dd/M/yyyy/HHmm",
+        "d/MM/yyyy/HHmm",
+        "d/M/yyyy/HHmm",
+        "HHmm/dd/MM/yyyy",
+        "HHmm/dd/M/yyyy",
+        "HHmm/d/MM/yyyy",
+        "HHmm/d/M/yyyy"
+    };
 
-        "HHmm dd/MM/yyyy",
-        "HHmm dd/M/yyyy",
-        "HHmm d/MM/yyyy",
-        "HHmm d/M/yyyy",
-        "HHmm dd/MM",
-        "HHmm dd/M",
-        "HHmm d/MM",
-        "HHmm d/M",
-
-        "dd/MM/yyyy Hmm",
-        "dd/M/yyyy Hmm",
-        "d/MM/yyyy Hmm",
-        "d/M/yyyy Hmm",
-        "dd/MM Hmm",
-        "dd/M Hmm",
-        "d/MM Hmm",
-        "d/M Hmm",
-
-        "Hmm dd/MM/yyyy",
-        "Hmm dd/M/yyyy",
-        "Hmm d/MM/yyyy",
-        "Hmm d/M/yyyy",
-        "Hmm dd/MM",
-        "Hmm dd/M",
-        "Hmm d/MM",
-        "Hmm d/M"
+    /**
+     * If possible formats return false, it must be one of these 
+     * alternative formats
+     */
+    private final String[] possibleFormatsBackup = {
+        "dd/MM/HHmm/yyyy",
+        "dd/M/HHmm/yyyy",
+        "d/MM/HHmm/yyyy",
+        "d/M/HHmm/yyyy",
+        "HHmm/dd/MM/yyyy",
+        "HHmm/dd/M/yyyy",
+        "HHmm/d/MM/yyyy",
+        "HHmm/d/M/yyyy"
     };
 
     /**
      * Constructor. Initialise internal parser
      */
-    public TimeParser() throws URISyntaxException {
+    public TimeParser(Ui ui) throws URISyntaxException {
         super();
-        // File.separator
-        String commandSetPath = System.getProperty("user.dir") + "/data/input/time-data.properties";
-        String trainingPath = System.getProperty("user.dir") + "/data/input/training-data.yml";
-        parser = prepareParser(commandSetPath, trainingPath);
+        this.ui = ui;
     }
 
     /**
@@ -66,7 +54,27 @@ public class TimeParser extends ParserBase {
      * @return
      */
     public Time parse(String input) {
-        for (String format : possibleFormats) {
+        ui.showText(input);
+        String inputFormatted = input.replace(' ', '/');
+        Time time = tryParse(inputFormatted, possibleFormats);
+        if (time != null) {
+            return time;
+        }
+
+        // use backup formats
+        Integer currentYear =  Year.now().getValue();
+        inputFormatted += "/" + currentYear.toString();
+        time = tryParse(inputFormatted, possibleFormatsBackup);
+        if (time != null) {
+            return time;
+        }
+
+        ui.showText("Failed to parse time!");
+        return new Time();
+    }
+
+    private Time tryParse(String input, String[] formats) {
+        for (String format : formats) {
             try {
                 LocalDateTime localTime = LocalDateTime.parse(input, DateTimeFormatter.ofPattern(format));
                 return new Time(localTime);
@@ -74,9 +82,6 @@ public class TimeParser extends ParserBase {
                 continue;
             }
         }
-
-        System.out.println("Failed to parse time!");
-        return new Time();
+        return null;
     }
-
 }

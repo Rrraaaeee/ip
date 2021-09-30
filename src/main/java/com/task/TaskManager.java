@@ -4,19 +4,22 @@ import java.util.ArrayList;
 
 import com.command.Command;
 import com.time.Time;
+import com.ui.Ui;
 
 public class TaskManager {
 
     private ArrayList<TaskBase> taskList;
     private TaskFactory taskFactory;
+    private Ui ui;
 
 
     /**
      * Constructor
      **/
-    public TaskManager() {
+    public TaskManager(Ui ui) {
         this.taskList = new ArrayList<TaskBase>();
         this.taskFactory = new TaskFactory();
+        this.ui = ui;
     }
 
     /**
@@ -45,31 +48,38 @@ public class TaskManager {
     /**
      * api for list command
      **/
-    public void listAllTasks() {
+    public String listAllTasks() {
+        String response = "";
         int label = 1;
         for (TaskBase task : taskList) {
-            System.out.print(label++);
-            System.out.print(".");
-            System.out.print(task);
-            System.out.println("-------");
+            response += label++;
+            response += ". ";
+            response += task;
+            response += "\n";
         }
+        if (!response.equals("")) {
+            // trailing new line does not render correctly in javafx
+            response = response.substring(0,response.length() - 1);
+        }
+        return response;
     }
 
     /**
-     * Mark task as done
+     * Mark task as done. Return the string of the deleted task
      **/
-    public void markTaskDone(int taskId) {
+    public String markTaskDone(int taskId) {
         taskList.get(taskId - 1).markDone();
-        System.out.println(taskList.get(taskId - 1));
+        return taskList.get(taskId - 1).toString();
     }
 
     /**
      * Delete a task
      **/
-    public void deleteTask(int taskId) {
+    public String deleteTask(int taskId) {
         // data structure is 0-indexed
-        System.out.println(taskList.get(taskId - 1));
+        String taskString = taskList.get(taskId - 1).toString();
         taskList.remove(taskId - 1);
+        return taskString;
     }
 
     /**
