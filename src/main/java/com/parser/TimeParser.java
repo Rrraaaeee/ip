@@ -75,7 +75,7 @@ public class TimeParser extends ParserBase {
     private Time tryParse(String input, String[] formats) {
         for (String format : formats) {
             try {
-                ui.showText("Trying to parse time: " + input + " -> " + format);
+                // ui.showText("Trying to parse time: " + input + " -> " + format);
                 LocalDateTime localTime = LocalDateTime.parse(input, DateTimeFormatter.ofPattern(format));
                 return new Time(localTime);
             } catch (DateTimeParseException e) {

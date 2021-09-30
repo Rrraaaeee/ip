@@ -14,7 +14,7 @@ public class TaskFactory {
         Time timeInfo = command.getTimeInfo();
         String taskDescription = command.getTaskDescription();
         if (command.getTaskType() == TaskType.TODO) {
-            return new TaskTodo(TaskType.TODO, timeInfo, taskDescription);
+            return new TaskTodo(TaskType.TODO, null, taskDescription);
         } else if (command.getTaskType() == TaskType.DEADLINE) {
             return new TaskDeadline(TaskType.DEADLINE, timeInfo, taskDescription);
         } else if (command.getTaskType() == TaskType.EVENT) {

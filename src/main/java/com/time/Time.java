@@ -21,7 +21,7 @@ public class Time {
      */
     public String toString() {
         if (time != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-L-dd HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             return time.format(formatter);
         } else {
             return "INVALID TIME";

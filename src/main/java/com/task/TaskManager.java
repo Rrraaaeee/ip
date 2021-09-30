@@ -90,6 +90,13 @@ public class TaskManager {
         return taskList;
     }
 
+    /**
+     * Get number of tasks
+     */
+    public Integer getTaskListSize() {
+        return taskList.size();
+    }
+
 
     /**
      * backend API to search all tasks by string

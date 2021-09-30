@@ -3,6 +3,9 @@ package com.storage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import com.task.TaskBase;
@@ -50,20 +53,49 @@ public class Storage {
             while (reader.hasNextLine()) {
                 // parse string
                 String [] words = reader.nextLine().split(" ");
+
+                // 1. get task type
                 TaskType taskType = TaskType.getTaskTypebySymbol(words[0].substring(1, 2));
+
+                // 2. get isDone
                 boolean isDone = false;
                 if (words[1].substring(1, 2).equals("X")) {
                     isDone = true;
                 }
-                String taskDescription = words[2];
-                String taskTimeInfo = "";
-                for (int i = 4; i < words.length; i++) {
-                    taskTimeInfo += words[i];
-                    taskTimeInfo += " ";
+
+                // 3. get description
+                String taskDescription = "";
+                for (int i = 2 ; i < words.length ; i++) {
+                    if (words[i].equals("@")) {
+                        break;
+                    }
+                    taskDescription += words[i] + " ";
                 }
-                System.out.println("TODO: Dont forget to implement time parsing in storage class!");
-                // create task
-                TaskBase task = taskManager.createTask(taskType, taskDescription, new Time());
+                taskDescription = taskDescription.trim();
+                
+                // 4. get time
+                String taskTimeInfo = "";
+                boolean isTimeString = false;
+                for (int i = 2; i < words.length; i++) {
+                    if (words[i].equals("@")) {
+                        isTimeString = true;
+                        continue;
+                    }
+                    if (isTimeString) {
+                        taskTimeInfo += words[i];
+                        taskTimeInfo += " ";
+                    }
+                }
+                taskTimeInfo = taskTimeInfo.trim();
+                Time time = null;
+                if (!taskTimeInfo.equals("")) {
+                    assert (taskType != TaskType.TODO);
+                    LocalDateTime localTime = LocalDateTime.parse(taskTimeInfo, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                    time = new Time(localTime);
+                }
+
+                // 5. create task
+                TaskBase task = taskManager.createTask(taskType, taskDescription, time);
                 if (isDone) {
                     task.markDone();
                 }
