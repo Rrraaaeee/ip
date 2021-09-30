@@ -6,58 +6,77 @@ Duke is a command line chatbot that helps you log, query and track progress of v
 1. [Features](#Features)
     1. [Natural syntax](#Natural-syntax)
     2. [Abbreviation](#Abbreviation)
+    3. [Auto-loading](#Auto-loading)
 2. [Getting Started](#Getting-Started)
 3. [Usage](#Usage)
 
-## Features 
+## Features <a name="Features"></a>
 
 Duke's intelligent parser allows user to type in command in a natural language 
 and supports abbreviations to avoid less typing. Duke is also able to save the tasks and
 automatically load them back the next time it starts.
 
-### Natural syntax
+### Natural syntax <a name="Natural-syntax"></a>
 
 Duke allows user to key in semi-structured input. For example, `deadline test by 1900 17/01/2021` and
 `add deadline test by 17/1/2021 1900`, or `mark 5` and `done 5` infer the same instructions respectively.
 Duke also understands various time formats automatically. For eample `1900 17/1/2021`, `17/01/2021 1900` 
 and `1900 17/1` all means the same time.
 
-### Abbreviation
+### Abbreviation <a name="Abbreviation"></a>
 
 Duke supports abbreviations, which allows user to perform operations faster and save time. For example,
 `add` and `a`, or `delete` and `del` can be used interchangably.
 
-### Auto-loading
+### Auto-loading <a name="Auto-loading"></a>
 
 Duke is able to save the task list using the `save` command and automatically load them back the next time 
 Duke starts.
 
 
-## Getting Started
+## Getting Started <a name="Getting-Started"></a>
 
-Start Duke by running `java -jar dir/to/duke.jar`. Duke create a `tmp/` folder under your current directory
-for its storage. If `tmp/` already exist, it will look for `storage.txt` for saved tasks and automatically 
-load them back. \
+Start Duke by running 
+```
+java -jar dir/to/duke.jar
+``` 
+Duke create a `tmp/` folder under your current directory for its storage. If `tmp/` already exist, 
+it will look for `storage.txt` for saved tasks and automatically load them back. 
 
 After Duke is ran successfully, you should see a command prompt where you can key in your commands.
-You may add a todo by `add todo hello`. \
+You may add a todo by 
+```
+add todo hello
+``` 
 
-Now lets create another task, `deadline`. Run `add deadline exam by 1800 1/10/2021`, this will create 
-a deadline with time. Note that the leading `add` can be omitted and the parser will automatically infer it. 
+Now lets create another task, `deadline`. Run 
+```
+add deadline exam by 1800 1/10/2021
+```
+This will create a deadline with time. Note that the leading `add` can be omitted and the parser will automatically infer it. 
 
 You may run `list` to check if these tasks are created successfully. It should show something like the following,
+
 ```
 1. [T] [_] hello
 2. [D] [_] exam @ 2021-10-01 18:00
 ```
-The first bracket tells the type of the task. The second bracket tells if a task has been marked. \
 
-To mark task 2, run `mark 2`. To delete task 1, run `delete 1`. Run `list` again. You should see task 1 has been
-deleted and task 2 has been marked.
+The first bracket tells the type of the task. The second bracket tells if a task has been marked. 
+
+To mark task 2, run 
+```
+mark 2
+``` 
+To delete task 1, run 
+```
+delete 1
+``` 
+Run `list` again. You should see task 1 has been deleted and task 2 has been marked.
 ```
 1. [D] [X] exam @ 2021-10-01 18:00
 ```
-Alternatively, you can also find this task by `find exam`. \
+Alternatively, you can also find this task by `find exam`. 
 
 If you are unsure about some commands, type `help` to see available commands. Now you are ready to go!
 
