@@ -8,8 +8,8 @@ public class HelpCommand extends Command {
 
     private static final String HELP = "========== HELP =========\n"
                                      + "(add) todo [task name]\n"
-                                     + "(add) deadline [task name] by [time]\n"
-                                     + "(add) event [task name] on [time]\n"
+                                     + "(add) deadline [task name] by [HHmm dd/MM/yyyy]\n"
+                                     + "(add) event [task name] on [HHmm dd/MM/yyyy]\n"
                                      + "find [task name]\n"
                                      + "mark [task id]\n"
                                      + "delete [task id]\n"
