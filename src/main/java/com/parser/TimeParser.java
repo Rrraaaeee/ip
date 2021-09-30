@@ -2,17 +2,15 @@ package com.parser;
 
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.Year;
 
-import com.dopsun.chatbot.cli.Parser;
 import com.time.Time;
 import com.ui.Ui;
 
 public class TimeParser extends ParserBase {
 
-    // private Parser parser;
     private Ui ui;
     private final String[] possibleFormats = {
         "dd/MM/yyyy/HHmm",
@@ -26,7 +24,7 @@ public class TimeParser extends ParserBase {
     };
 
     /**
-     * If possible formats return false, it must be one of these 
+     * If possible formats return false, it must be one of these
      * alternative formats
      */
     private final String[] possibleFormatsBackup = {
@@ -63,7 +61,7 @@ public class TimeParser extends ParserBase {
         }
 
         // use backup formats
-        Integer currentYear =  Year.now().getValue();
+        Integer currentYear = Year.now().getValue();
         inputFormatted += "/" + currentYear.toString();
         time = tryParse(inputFormatted, possibleFormatsBackup);
         if (time != null) {

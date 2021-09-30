@@ -59,7 +59,7 @@ public class TaskManager {
         }
         if (!response.equals("")) {
             // trailing new line does not render correctly in javafx
-            response = response.substring(0,response.length() - 1);
+            response = response.substring(0, response.length() - 1);
         }
         return response;
     }
