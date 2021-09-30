@@ -41,7 +41,6 @@ public class Duke {
      */
     public void run() {
         startUp();
-        ui.showText("[TODO] Dont forget to clean up generic exception error");
         ui.showText("[TODO] Use File.seperator so that path works on both mac and window");
         ui.showSeperator();
         // event loop

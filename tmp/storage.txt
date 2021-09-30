@@ -1,0 +1,6 @@
+[E] [_] party @ 2021-09-30 04:00
+[T] [X] pay school fee 
+[D] [X] revise math @ 2021-10-01 12:00
+[T] [_] pay Yvonne 
+[E] [_] exercise @ 2021-10-02 19:00
+[D] [X] apply for job @ 2022-02-01 12:00
