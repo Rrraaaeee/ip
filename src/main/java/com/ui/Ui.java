@@ -40,20 +40,36 @@ public class Ui {
         show(text);
     }
 
+    /**
+     * Exception message to show file path error
+     **/
     public void showInvalidFilePathError() {
         show("Parser received invalid input file path!");
+        showSeperator();
     }
 
+    /**
+     * Exception message to show invalid command error
+     **/
     public void showInvalidCommandError() {
         show("I don't quite understand what do you mean, try type in [help] to see available commands.");
+        showSeperator();
     }
 
+    /**
+     * Exception message to show invalid command argument error
+     **/
     public void showInvalidCommandArgumentError() {
         show("You have keyed in invalid command argument.");
+        showSeperator();
     }
 
+    /**
+     * Exception message to show invalid number (such as task id) error
+     **/
     public void showInvalidNumberError() {
         show("Unrecognised number.");
+        showSeperator();
     }
 
     public void showBye() {

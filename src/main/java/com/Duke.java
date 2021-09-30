@@ -46,6 +46,7 @@ public class Duke {
         startUp();
         ui.showText("[TODO] Dont forget to clean up generic exception error");
         ui.showText("[TODO] Use File.seperator so that path works on both mac and window");
+        ui.showSeperator();
         // event loop
         while (true) {
             nextEvent();
@@ -62,6 +63,7 @@ public class Duke {
     private void nextEvent() {
         try {
             String input = scanner.nextLine();
+            ui.showSeperator();
             Command command = commandParser.parse(input);
             if (command != null) {
                 commandHandler.handlerCommand(command);

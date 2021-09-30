@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import com.task.TaskBase;
@@ -65,14 +64,14 @@ public class Storage {
 
                 // 3. get description
                 String taskDescription = "";
-                for (int i = 2 ; i < words.length ; i++) {
+                for (int i = 2; i < words.length; i++) {
                     if (words[i].equals("@")) {
                         break;
                     }
                     taskDescription += words[i] + " ";
                 }
                 taskDescription = taskDescription.trim();
-                
+
                 // 4. get time
                 String taskTimeInfo = "";
                 boolean isTimeString = false;
@@ -90,7 +89,8 @@ public class Storage {
                 Time time = null;
                 if (!taskTimeInfo.equals("")) {
                     assert (taskType != TaskType.TODO);
-                    LocalDateTime localTime = LocalDateTime.parse(taskTimeInfo, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                    LocalDateTime localTime = LocalDateTime.parse(taskTimeInfo,
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                     time = new Time(localTime);
                 }
 
