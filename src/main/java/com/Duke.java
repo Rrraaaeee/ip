@@ -41,7 +41,6 @@ public class Duke {
      */
     public void run() {
         startUp();
-        ui.showText("[TODO] Use File.seperator so that path works on both mac and window");
         ui.showSeperator();
         // event loop
         while (true) {
