@@ -110,5 +110,9 @@ public class TaskManager {
         }
         return outcome;
     }
+
+    public void clearTasks() {
+        taskList.clear();
+    }
 }
 

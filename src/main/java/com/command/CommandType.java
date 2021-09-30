@@ -46,6 +46,7 @@ public enum CommandType {
         new HashSet<CommandType>() {{
             add(CommandType.LIST);
             add(CommandType.SAVE);
+            add(CommandType.LOAD);
             add(CommandType.BYE);
             add(CommandType.HELP);
         }};

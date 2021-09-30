@@ -1,6 +1,8 @@
 package com.ui;
 
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Scanner;
 
 public class Ui {
 
@@ -19,9 +21,19 @@ public class Ui {
     static final String SEPERATOR = "---------------";
 
     private PrintStream printStream;
+    private Scanner scanner;
 
-    public Ui (PrintStream printStream) {
+    /**
+     * specify the input and output streams that ui interface with
+     */
+    public Ui (InputStream inputStream, PrintStream printStream) {
         this.printStream = printStream;
+        this.scanner = new Scanner(System.in);
+    }
+
+
+    public String getInput() {
+        return scanner.nextLine();
     }
 
     public void showLogo() {
@@ -74,6 +86,14 @@ public class Ui {
 
     public void showBye() {
         show("Bye bye :))");
+    }
+
+    /**
+     * Close streams properly before program ends
+     */
+    public void closeStreams() {
+        scanner.close();
+        printStream.close();
     }
 
     private void show(String printMessage) {

@@ -16,6 +16,7 @@ import com.command.DeleteCommand;
 import com.command.FindCommand;
 import com.command.HelpCommand;
 import com.command.ListCommand;
+import com.command.LoadCommand;
 import com.command.MarkCommand;
 import com.command.SaveCommand;
 import com.dopsun.chatbot.cli.Argument;
@@ -89,6 +90,8 @@ public class CommandParser extends ParserBase {
                 return new ListCommand();
             case SAVE:
                 return new SaveCommand();
+            case LOAD:
+                return new LoadCommand();
             case BYE:
                 return new ByeCommand();
             case HELP:

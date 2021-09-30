@@ -1,7 +1,6 @@
 package com;
 
 import java.net.URISyntaxException;
-import java.util.Scanner;
 
 import com.command.Command;
 import com.command.CommandHandler;
@@ -16,7 +15,6 @@ import com.ui.Ui;
 
 
 public class Duke {
-    private Scanner scanner;
     private Ui ui;
     private CommandHandler commandHandler;
     private CommandParser commandParser;
@@ -27,9 +25,8 @@ public class Duke {
      * such as scanner, ui, parser and commandHandler
      **/
     public Duke(String storagePath) {
-        ui = new Ui(System.out);
-        scanner = new Scanner(System.in); // Create a Scanner object
-        storage = new Storage(storagePath);
+        ui = new Ui(System.in, System.out);
+        storage = new Storage(storagePath, ui);
         commandHandler = new CommandHandler(storage, ui);
 
         try {
@@ -57,12 +54,15 @@ public class Duke {
         ui.showLogo();
         ui.showGreetingMessage();
         ui.showSeperator();
+
+        ui.showText("Loading tasks from storage ...");
+        ui.showSeperator();;
         storage.loadTasks();
 
     }
     private void nextEvent() {
         try {
-            String input = scanner.nextLine();
+            String input = ui.getInput();
             ui.showSeperator();
             Command command = commandParser.parse(input);
             if (command != null) {
@@ -76,7 +76,7 @@ public class Duke {
             ui.showInvalidNumberError();
         } catch (FinishAppException e) {
             ui.showBye();
-            scanner.close();
+            ui.closeStreams();
             System.exit(0);
         }
     }

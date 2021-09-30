@@ -12,19 +12,22 @@ import com.task.TaskFactory;
 import com.task.TaskManager;
 import com.task.TaskType;
 import com.time.Time;
+import com.ui.Ui;
 
 
 public class Storage {
     private String storagePath;
     private TaskManager taskManager;
+    private Ui ui;
 
     /**
      * Constructor
      * pass storage path for subsequent directory lookup
      * commandhandler and taskfactory to rebuild tasks from storage
      **/
-    public Storage(String storagePath) {
+    public Storage(String storagePath, Ui ui) {
         this.storagePath = storagePath;
+        this.ui = ui;
         this.taskManager = null;
     }
 
@@ -47,6 +50,7 @@ public class Storage {
      **/
     public boolean loadTasks() {
         try {
+            taskManager.clearTasks();
             File savedFile = new File(storagePath);
             Scanner reader = new Scanner(savedFile);
             while (reader.hasNextLine()) {
@@ -100,14 +104,15 @@ public class Storage {
                     task.markDone();
                 }
                 taskManager.addTask(task);
+                ui.showText(task.toString());
             }
             reader.close();
             return true;
         } catch (FileNotFoundException e) {
-            System.out.println("No saved file found");
+            ui.showText("No saved file found");
             return false;
         } catch (Exception e) {
-            System.out.println("Error loading file! No data is loaded");
+            ui.showText("Error loading file! No data is loaded");
             e.printStackTrace();
             return false;
         }
