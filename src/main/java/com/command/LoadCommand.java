@@ -17,6 +17,7 @@ public class LoadCommand extends Command {
         ui.showText("[WARNING] Loading tasks without saving will lose your current data!"
                 + "Do you want to continue? [y/n]");
         while (true) {
+            ui.showPrompt();
             String response = ui.getInput();
             response = response.toLowerCase().strip();
             if (response.equals("y")) {

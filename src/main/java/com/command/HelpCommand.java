@@ -15,7 +15,9 @@ public class HelpCommand extends Command {
                                      + "delete [task id]\n"
                                      + "list\n"
                                      + "load\n"
-                                     + "save";
+                                     + "save\n"
+                                     + "bye";
+
 
     public HelpCommand() {
         super(CommandType.HELP);

@@ -20,7 +20,6 @@ public class TaskFactory {
         } else if (command.getTaskType() == TaskType.EVENT) {
             return new TaskEvent(TaskType.EVENT, timeInfo, taskDescription);
         } else {
-            System.out.println("[TASK FACTORY] Default task is todo type");
             return new TaskTodo(TaskType.TODO, timeInfo, taskDescription);
         }
     }
@@ -36,7 +35,6 @@ public class TaskFactory {
         } else if (taskType == TaskType.EVENT) {
             return new TaskEvent(TaskType.EVENT, timeInfo, taskDescription);
         } else {
-            System.out.println("[TASK FACTORY] Default task is todo type");
             return new TaskTodo(TaskType.TODO, timeInfo, taskDescription);
         }
     }

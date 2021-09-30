@@ -88,8 +88,12 @@ public class Ui {
         show("Bye bye :))");
     }
 
+    public void showPrompt() {
+        printStream.print(">> ");
+    }
+
     /**
-     * Close streams properly before program ends
+     * Close streams properly
      */
     public void closeStreams() {
         scanner.close();

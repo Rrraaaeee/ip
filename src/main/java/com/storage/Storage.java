@@ -3,6 +3,7 @@ package com.storage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -111,10 +112,6 @@ public class Storage {
         } catch (FileNotFoundException e) {
             ui.showText("No saved file found");
             return false;
-        } catch (Exception e) {
-            ui.showText("Error loading file! No data is loaded");
-            e.printStackTrace();
-            return false;
         }
     }
 
@@ -129,11 +126,13 @@ public class Storage {
             }
             writer.close();
             return true;
-        } catch (Exception e) {
-            System.out.println("Error encountered while saving data!");
+        } catch (FileNotFoundException e) {
+            ui.showText("No saved file found");
+            return false;
+        } catch (UnsupportedEncodingException e) {
+            ui.showText("Unsupported Encoding error when trying to save data into file!");
             return false;
         }
+
     }
-
-
 }

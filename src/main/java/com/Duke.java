@@ -62,6 +62,7 @@ public class Duke {
     }
     private void nextEvent() {
         try {
+            ui.showPrompt();
             String input = ui.getInput();
             ui.showSeperator();
             Command command = commandParser.parse(input);
