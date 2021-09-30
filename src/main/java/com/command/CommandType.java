@@ -23,6 +23,7 @@ public enum CommandType {
             put("delete", CommandType.DELETE);
             put("find", CommandType.FIND);
             put("bye", CommandType.BYE);
+            put("exit", CommandType.BYE);
             put("save", CommandType.SAVE);
             put("load", CommandType.LOAD);
             put("help", CommandType.HELP);
