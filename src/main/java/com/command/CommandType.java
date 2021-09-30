@@ -12,6 +12,7 @@ public enum CommandType {
     BYE,
     SAVE,
     LOAD,
+    HELP,
     INVALID;
 
     private static final HashMap<String, CommandType> CommandStrToType =
@@ -24,6 +25,7 @@ public enum CommandType {
             put("bye", CommandType.BYE);
             put("save", CommandType.SAVE);
             put("load", CommandType.LOAD);
+            put("help", CommandType.HELP);
             put("invalid", CommandType.INVALID);
         }};
     private static final HashMap<CommandType, String> CommandTypeToStr =
@@ -36,6 +38,7 @@ public enum CommandType {
             put(CommandType.BYE, "bye");
             put(CommandType.SAVE, "save");
             put(CommandType.LOAD, "load");
+            put(CommandType.HELP, "help");
             put(CommandType.INVALID, "invalid");
         }};
 
@@ -44,6 +47,7 @@ public enum CommandType {
             add(CommandType.LIST);
             add(CommandType.SAVE);
             add(CommandType.BYE);
+            add(CommandType.HELP);
         }};
 
     private static CommandType[] list = CommandType.values();

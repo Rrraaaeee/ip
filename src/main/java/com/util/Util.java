@@ -18,31 +18,22 @@ public class Util {
     /**
      * Convert input stream (resources) to file during deployment
      */
-    public static File inputStreamtoTmpFile (InputStream inputStream, String baseDir, String fileName) {
+    public static File inputStreamtoTmpFile (InputStream inputStream, String baseDir, String fileName)
+            throws IOException {
         File tmpFile = null;
-        try {
-            Path folderDir = Paths.get(baseDir);
-            Path fileDir = Paths.get(baseDir + fileName);
-            if (Files.notExists(folderDir)) {
-                Files.createDirectories(folderDir);
-            }
-            /*
-            if (Files.notExists(fileDir)) {
-                Files.createFile(fileDir);
-            }
-            */
-            // append == false
-            tmpFile = new File(fileDir.toString());
-            OutputStream tmpFileStream = new FileOutputStream(tmpFile);
-
-            byte[] buffer = inputStream.readAllBytes();
-            tmpFileStream.write(buffer);
-            tmpFileStream.close();
-
-
-        } catch (IOException e) {
-            System.out.println("Error encountered when creating temp file: " + baseDir + fileName);
+        Path folderDir = Paths.get(baseDir);
+        Path fileDir = Paths.get(baseDir + fileName);
+        if (Files.notExists(folderDir)) {
+            Files.createDirectories(folderDir);
         }
+        // append == false
+        tmpFile = new File(fileDir.toString());
+        OutputStream tmpFileStream = new FileOutputStream(tmpFile);
+
+        byte[] buffer = inputStream.readAllBytes();
+        tmpFileStream.write(buffer);
+        tmpFileStream.close();
+
         return tmpFile;
     }
 

@@ -33,7 +33,7 @@ public class Duke {
         commandHandler = new CommandHandler(storage, ui);
 
         try {
-            commandParser = new CommandParser();
+            commandParser = new CommandParser(ui);
         } catch (URISyntaxException e) {
             ui.showInvalidFilePathError();
         }
@@ -73,6 +73,7 @@ public class Duke {
         } catch (NumberFormatException e) {
             ui.showInvalidNumberError();
         } catch (FinishAppException e) {
+            ui.showBye();
             scanner.close();
             System.exit(0);
         }

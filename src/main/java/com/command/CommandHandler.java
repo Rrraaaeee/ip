@@ -17,7 +17,7 @@ public class CommandHandler {
      * and fully initialise storage unit
      **/
     public CommandHandler(Storage storage, Ui ui) {
-        this.taskManager = new TaskManager();
+        this.taskManager = new TaskManager(ui);
         this.ui = ui;
         this.storage = storage;
         this.storage.assignTaskManager(taskManager);

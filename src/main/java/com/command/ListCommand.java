@@ -14,9 +14,8 @@ public class ListCommand extends Command {
      * Implementing abstract method for polymorphism
      */
     public void execute(TaskManager taskManager, Storage storage, Ui ui) {
-        taskManager.listAllTasks();
 
-        ui.showText("Listed all tasks.");
+        ui.showText("Here are your available tasks:\n" + taskManager.listAllTasks());
         ui.showSeperator();
 
     }

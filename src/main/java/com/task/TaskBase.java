@@ -31,12 +31,13 @@ public abstract class TaskBase {
      **/
     public String toString() {
         String s = new String("");
-        s += String.format("[%s] [%c] %s | ",
+        s += String.format("[%s] [%c] %s ",
                     getTaskSymbol(),
                     isDone ? 'X' : '_',
                     taskDescription);
-        s += taskTime.toString();
-
+        if (taskTime != null) {
+            s += taskTime.toString();
+        }
         return s;
     }
 
