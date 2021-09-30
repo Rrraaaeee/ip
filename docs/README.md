@@ -81,9 +81,11 @@ Details of these operations are described below.
 
 Example of usage: 
 
-`(add) todo {task name}` 
-`(add) deadline {task name} by {time}` 
-`(add) event {task name} on {time}` 
+```
+(add) todo {task name}
+(add) deadline {task name} by {time}
+(add) event {task name} on {time}
+```
 
 Expected outcome:
 
@@ -100,7 +102,7 @@ I have added task: [D] [_] test @ 2021-01-17 19:00
 
 Example of usage: 
 
-`list` \
+`list` 
 
 Expected outcome:
 
@@ -118,7 +120,7 @@ Here are your available tasks:
 
 Example of usage: 
 
-`del 1` \
+`del 1` 
 
 Expected outcome:
 
@@ -147,7 +149,7 @@ Here are your available tasks:
 
 Example of usage: 
 
-`mark 1` \
+`mark 1` 
 
 Expected outcome:
 
@@ -201,20 +203,20 @@ Found: [T] [_] pay Yvonne
 
 Example of usage: 
 
-`save` \
+`save` 
 
 
 ### `load` - Load available tasks from storage
 
 Example of usage: 
 
-`load` \
+`load` 
 
 ### `help` - Get the help manual that shows list of available commands
 
 Example of usage: 
 
-`help` \
+`help` 
 
 Expected outcome:
 
